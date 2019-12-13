@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=WebRoot/public/klorofilAssets/vendor/chartist/js/chartist.js,WebRoot/WEB-INF/view/common/klorofil/foot.jsp,WebRoot/html,WebRoot/WEB-INF/view/common/swrw/head.jsp,WebRoot/WEB-INF/view/common/klorofil/messageLeftSidebar.jsp,WebRoot/public/assets/js/iziToast/iziToast.js
+validator.Unchecked=
