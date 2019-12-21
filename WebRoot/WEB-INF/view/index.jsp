@@ -39,10 +39,10 @@
 										</div>
 										<div class="slider-btn">
 											<div class="buttonfx btn-green">
-												<a class="shutter-in-horizontal green-border-2" href="javascript:;"><fmt:message key="ApplyNow" /></a>
+												<a class="shutter-in-horizontal green-border-2" href="job"><fmt:message key="ApplyNow" /></a>
 											</div>
 											<div class="btn-trasparent-green buttonfx curtainup">
-												<a class="shutter-in-horizontal green-border-2" href="javascript:;"><fmt:message key="JoinwithUs" /></a>
+												<a class="shutter-in-horizontal green-border-2" href="register"><fmt:message key="JoinwithUs" /></a>
 											</div>
 										</div>
 									</div>
@@ -50,29 +50,34 @@
 							</div>
 							<div class="job-search-bar">
 								<div class="search-bar text-center">
-									<form action="#" class="">
+									<form action="job/job_listing" method="get">
 										<div class="form-row">
 											<div class="col-md-3">
-												<input type="search" placeholder="<fmt:message key="EnterKeywords"/>" />
+												<input type="search" placeholder="<fmt:message key="EnterKeywords"/>" name="queryStr" autocomplete="off"/>
 											</div>
 											<div class="col-md-3">
-												<select class="custom-multi-select" name="state">
+												<select class="custom-multi-select" name="company_size">
 													<option value="" disabled selected><fmt:message key="CompanySize" /></option>
-													<option value="AL"><fmt:message key="Lessthan100people" /></option>
-													<option value="AL"><fmt:message key="100to200people" /></option>
-													<option value="AL"><fmt:message key="200to500people" /></option>
-													<option value="AL"><fmt:message key="500to1000people" /></option>
-													<option value="AL"><fmt:message key="Morethan1000people" /></option>
-
+													<option value="500人以下"><fmt:message key="CompanySize1"/></option>
+													<option value="500-1000人"><fmt:message key="CompanySize2"/></option>
+													<option value="1000-5000人"><fmt:message key="CompanySize3"/></option>
+													<option value="5000-10000人"><fmt:message key="CompanySize4"/></option>
+													<option value="10000人以上"><fmt:message key="CompanySize5"/></option>
 												</select>
 											</div>
 											<div class="col-md-3">
-												<select class="custom-multi-select" name="state">
+												<select class="custom-multi-select" name="company_type">
 													<option value="" disabled selected><fmt:message key="CompanyType" /></option>
-													<option value="part"><fmt:message key="Jointstockenterprises" /></option>
-													<option value="full"><fmt:message key="Foreignenterprise" /></option>
-													<option value="remote"><fmt:message key="Jointventure" /></option>
-
+													<option value="私营企业"><fmt:message key="CompanyType1"/></option>
+													<option value="股份制企业"><fmt:message key="CompanyType2"/></option>
+													<option value="外资企业"><fmt:message key="CompanyType3"/></option>
+													<option value="合资企业"><fmt:message key="CompanyType4"/></option>
+													<option value="三资企业"><fmt:message key="CompanyType5"/></option>
+													<option value="国有企业"><fmt:message key="CompanyType6"/></option>
+													<option value="其他企业"><fmt:message key="CompanyType7"/></option>
+													<option value="中初教育单位"><fmt:message key="CompanyType8"/></option>
+													<option value="科研设计单位"><fmt:message key="CompanyType9"/></option>
+													<option value="其他事业单位"><fmt:message key="CompanyType10"/></option>
 												</select>
 											</div>
 											<div class="col-md-3">
@@ -97,50 +102,41 @@
 				<div class="how-work-wrapper text-center">
 					<div class="row">
 						<div class="col-md-4">
-							<div class="work-block" data-aos="fade-up">
+							<div class="work-block m-0" data-aos="fade-up">
 								<div class="icon">
-									<a href="javascript:;"><img src="/SWRW/public/assets/images/lock.png"
-										alt="image" /></a>
+									<a href="register"><img src="/SWRW/public/assets/images/lock.png" alt="image" style="height:58px"/></a>
 								</div>
 								<div class="title">
-									<h3>Create Account</h3>
+									<h3><fmt:message key="CreateAnAccount" /></h3>
 								</div>
-								<p>
-									Lorem ipsum dolor sit amet, a arcu justo eget, placerat
-									suspendisse ornare accumsan et fringilla consectetuer <br /> <a
-										class="read-more" href="javascript:;">Read More</a>
-								</p>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="work-block">
-								<div class="icon">
-									<a href="javascript:;"><img src="/SWRW/public/assets/images/search.png"
-										alt="image" /></a>
-								</div>
-								<div class="title">
-									<h3>Serach Job</h3>
-								</div>
-								<p>
-									Lorem ipsum dolor sit amet, a arcu justo eget, placerat
-									suspendisse ornare accumsan et fringilla consectetuer <br /> <a
-										class="read-more" href="javascript:;">Read More</a>
+								<p><fmt:message key="RegisterLeft1" /><br /><br />
+									<a class="read-more" href="register"><fmt:message key="Register" /></a>
 								</p>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="work-block m-0">
 								<div class="icon">
-									<a href="javascript:;"><img src="/SWRW/public/assets/images/resume.png"
-										alt="image" /></a>
+									<a href="job/job_listing"><img src="/SWRW/public/assets/images/search.png" alt="image" style="height:58px"/></a>
 								</div>
 								<div class="title">
-									<h3>Submit Resume</h3>
+									<h3><fmt:message key="SearchJobs" /></h3>
 								</div>
-								<p>
-									Lorem ipsum dolor sit amet, a arcu justo eget, placerat
-									suspendisse ornare accumsan et fringilla consectetuer <br /> <a
-										class="read-more" href="javascript:;">Read More</a>
+								<p><fmt:message key="IndexDisplay" /><br />
+									<a class="read-more" href="job/job_listing"><fmt:message key="JobListing" /></a>
+								</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="work-block m-0" data-aos="fade-down">
+								<div class="icon">
+									<a href="/SWRW/applicant/resume/complete_resume"><img src="/SWRW/public/assets/images/resume.png" alt="image" style="height:58px" /></a>
+								</div>
+								<div class="title">
+									<h3><fmt:message key="SubmitResume" /></h3>
+								</div>
+								<p><fmt:message key="ResumeInfoTip" /><br />${language.equals("zh_CN")?"":"<br />" }
+									<a class="read-more" href="/SWRW/applicant/resume/complete_resume"><fmt:message key="CompleteResume" /></a>
 								</p>
 							</div>
 						</div>
@@ -155,7 +151,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="section-title text-left">
-							<span>This week's top jobs</span>
+							<span><fmt:message key="WeekTopJob" />This week's top jobs</span>
 							<h2>Featured Jobs</h2>
 							<div class="line"></div>
 						</div>

@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.qst.itoffer.util.BASE64,com.qst.itoffer.bean.User,com.qst.itoffer.dao.UserDao" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,com.swzj.swrw.util.BASE64,com.swzj.swrw.bean.User,com.swzj.swrw.dao.UserDao" pageEncoding="UTF-8"%>
 <!-- 页面初始化 -->
 <%@include file="/WEB-INF/view/common/swrw/init.jsp"%>
 

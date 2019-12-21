@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.qst.itoffer.util.COMUtil" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*,com.swzj.swrw.util.COMUtil" pageEncoding="utf-8"%>
 <!-- 页面初始化 -->
 <%@include file="/WEB-INF/view/common/klorofil/init.jsp"%>
 
@@ -23,9 +23,9 @@
 <!-- MAIN CONTENT -->
 <div class="main-content">
 	<!-- 待审核企业 -->
-	<div class="panel" id="waitAuditPanel">
+	<div class="panel" id="waitAuditCompanyPanel">
 		<div class="panel-heading">
-			<h3 class="panel-title">待审核企业认证</h3>
+			<h3 class="panel-title">待审核企业资质认证</h3>
 		</div>
 		<div class="panel-heading">
 			<div class="container-fluid">
@@ -70,6 +70,7 @@
 						<th>操作管理</th>
 						<th>企业名称</th>
 						<th>企业法人</th>
+						<th>企业所在地</th>
 						<th>企业性质</th>
 						<th>企业规模</th>
 						<th>提交认证时间</th>
@@ -148,8 +149,8 @@
 		<div class="panel-body">
 			<table class="table table-bordered table-striped table-hover ">
 				<colgroup>
-					<col style="width:15%">
-					<col style="width:85%">
+					<col style="width:20%">
+					<col style="width:80%">
 				</colgroup>
 				<tbody>
 					<tr>

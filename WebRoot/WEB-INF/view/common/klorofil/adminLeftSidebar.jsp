@@ -79,6 +79,19 @@
 			document.getElementById("approved_company").className = "active";
 		}
 	}
+	
+	//管理员职位认证审核菜单
+	if (pathname.indexOf("audit/job/") != -1) {
+		document.getElementById("#job_audit").className = "active";
+		document.getElementById("job_audit").className = "collapse in";
+		if (pathname.indexOf("wait_audit_job") != -1) {
+			document.getElementById("wait_audit_job").className = "active";
+		} else if (pathname.indexOf("unapproved_job") != -1) {
+			document.getElementById("unapproved_job").className = "active";
+		} else if (pathname.indexOf("approved_job") != -1) {
+			document.getElementById("approved_job").className = "active";
+		}
+	}
 
 	//管理员信息管理菜单
 	if (pathname.indexOf("manageInfo") != -1) {

@@ -61,7 +61,7 @@
 							</div>
 						</div>
 						<div class="panel-body">
-							<p style="text-indent: 2em;">${mes.getContent() }</p>
+							<p>${mes.getContent() }</p>
 						</div>
 						<div class="panel-footer">
 							<span>#${floor.count+startFloor}</span>
@@ -91,7 +91,7 @@
 							</div>
 						</div>
 						<div class="panel-body">
-							<p style="text-indent: 2em;">${mes.getContent() }</p>
+							<p>${mes.getContent() }</p>
 						</div>
 						<div class="panel-footer">
 							<span>#${floor.count+startFloor}</span>

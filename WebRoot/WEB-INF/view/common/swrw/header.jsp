@@ -21,39 +21,46 @@
                         <a class="nav-link" href="javascript:;"><fmt:message key="About"/></a>
                         <ul>
                            <li><a href="/SWRW/about.jsp"><fmt:message key="About"/></a></li>
-                           <li><a href="/SWRW/contact.jsp"><fmt:message key="Contact"/></a></li>
-                           <li><a href="/SWRW/blog-page.jsp"><fmt:message key="Blog"/></a></li>
+                           <li><a href="/SWRW/contact.jsp"><fmt:message key="ContactUs"/></a></li>
+                           <li><a href="/SWRW/blog.jsp"><fmt:message key="Blog"/></a></li>
                         </ul>
                      </li>
 
 							<!-- 动态导航 -->
 		             	<c:choose>
 							<c:when test="${currentURL.indexOf('/SWRW/WEB-INF/view/user')!=-1 }">
+								<!-- 用户页面 -->
 								<c:if test="${user.getType()==1 }">
 								<!-- 求职者导航 -->
+								<li class="nav-item">
+	                        <a class="nav-link" href="/SWRW/job"><fmt:message key="Job"/></a>
+	                     </li>
 								<li class="nav-item">
 	                        <a class="nav-link" href="javascript:;"><fmt:message key="Resume"/></a>
 	                        <ul>
 	                        	<li><a href="/SWRW/applicant/resume/view_resume"><fmt:message key="ViewResume"/></a></li>
-	                        	<li><a href="/SWRW/applicant/resume/complete_resume"><fmt:message key="CompleteResume_header"/></a></li>	
-	                           <li><a href="/SWRW/applicant/resume/viewed_history"><fmt:message key="ViewedHistory"/></a></li>
+	                        	<li><a href="/SWRW/applicant/resume/complete_resume"><fmt:message key="CompleteResume_header"/></a></li>
+	                        	<li><a href="/SWRW/applicant/resume/submit_history"><fmt:message key="ResumeSubmitRecord"/></a></li>
+	                           <li><a href="/SWRW/applicant/resume/viewed_history"><fmt:message key="ViewedRecord"/></a></li>
 	                        </ul>
 	                     </li>
 								</c:if>
 								<c:if test="${user.getType()==2 }">
 								<!-- 企业导航 -->
 								<li class="nav-item">
-	                        <a class="nav-link" href="javascript:;"><fmt:message key="Certification"/></a>
+	                        <a class="nav-link" href="javascript:;"><fmt:message key="Company"/></a>
 	                        <ul>
-	                           <li><a href="/SWRW/company/certificate/company_certification"><fmt:message key="CompanyCertification"/></a></li>
-	                           <li><a href="/SWRW/company/certificate/credential"><fmt:message key="Credential"/></a></li>
+	                        	<li><a href="/SWRW/company"><fmt:message key="Company"/></a></li>
+	                           <li><a href="/SWRW/user/mycenter?mode=CompanyCertification"><fmt:message key="CompanyCertification"/></a></li>
+	                           <li><a href="/SWRW/user/mycenter?mode=Credential"><fmt:message key="Credential"/></a></li>
 	                        </ul>
 	                     </li>
 	                     <li class="nav-item">
 	                        <a class="nav-link" href="javascript:;"><fmt:message key="Job"/></a>
 	                        <ul>
+	                        	<li><a href="/SWRW/company/job/browse_resume"><fmt:message key="BrowseResume"/></a></li>
 	                        	<li><a href="/SWRW/company/job/manage_job"><fmt:message key="ManageJob"/></a></li>
-	                           <li><a href="/SWRW/company/job/post_job"><fmt:message key="PostJob"/></a></li>					 
+	                        	<li><a href="/SWRW/company/job/post_job"><fmt:message key="PostJob"/></a></li>	
 	                        </ul>
 	                     </li>
 								</c:if>
@@ -72,28 +79,34 @@
 							<c:when test="${currentURL.indexOf('/SWRW/WEB-INF/view/applicant')!=-1 }">
 								<!-- 求职者页面导航 -->
 								<li class="nav-item">
+	                        <a class="nav-link" href="/SWRW/job"><fmt:message key="Job"/></a>
+	                     </li>
+								<li class="nav-item">
 	                        <a class="nav-link" href="javascript:;"><fmt:message key="Resume"/></a>
 	                        <ul>
 	                        	<li><a href="/SWRW/applicant/resume/view_resume"><fmt:message key="ViewResume"/></a></li>
-	                        	<li><a href="/SWRW/applicant/resume/complete_resume"><fmt:message key="CompleteResume_header"/></a></li>	
-	                           <li><a href="/SWRW/applicant/resume/viewed_history"><fmt:message key="ViewedHistory"/></a></li>
+	                        	<li><a href="/SWRW/applicant/resume/complete_resume"><fmt:message key="CompleteResume_header"/></a></li>
+	                        	<li><a href="/SWRW/applicant/resume/submit_history"><fmt:message key="ResumeSubmitRecord"/></a></li>
+	                           <li><a href="/SWRW/applicant/resume/viewed_history"><fmt:message key="ViewedRecord"/></a></li>
 	                        </ul>
 	                     </li>
 							</c:when>
 							<c:when test="${currentURL.indexOf('/SWRW/WEB-INF/view/company')!=-1 }">
 								<!-- 企业页面导航 -->
 								<li class="nav-item">
-	                        <a class="nav-link" href="javascript:;"><fmt:message key="Certification"/></a>
+	                        <a class="nav-link" href="javascript:;"><fmt:message key="Company"/></a>
 	                        <ul>
-	                           <li><a href="/SWRW/company/certificate/company_certification"><fmt:message key="CompanyCertification"/></a></li>
-	                           <li><a href="/SWRW/company/certificate/credential"><fmt:message key="Credential"/></a></li>
+	                        	<li><a href="/SWRW/company"><fmt:message key="Company"/></a></li>
+	                           <li><a href="/SWRW/user/mycenter?mode=CompanyCertification"><fmt:message key="CompanyCertification"/></a></li>
+	                           <li><a href="/SWRW/user/mycenter?mode=Credential"><fmt:message key="Credential"/></a></li>
 	                        </ul>
 	                     </li>
 	                     <li class="nav-item">
 	                        <a class="nav-link" href="javascript:;"><fmt:message key="Job"/></a>
 	                        <ul>
+	                        	<li><a href="/SWRW/company/job/browse_resume"><fmt:message key="BrowseResume"/></a></li>
 	                        	<li><a href="/SWRW/company/job/manage_job"><fmt:message key="ManageJob"/></a></li>
-	                           <li><a href="/SWRW/company/job/post_job"><fmt:message key="PostJob"/></a></li>					 
+	                        	<li><a href="/SWRW/company/job/post_job"><fmt:message key="PostJob"/></a></li>	
 	                        </ul>
 	                     </li>
 							</c:when>
@@ -103,8 +116,8 @@
 	                        <a class="nav-link" href="javascript:;"><fmt:message key="Applicant"/></a>
 	                        <ul>
 	                           <li><a href="/SWRW/applicant"><fmt:message key="Applicant"/></a></li>
-	                           <li><a href="/SWRW/jobListing.jsp"><fmt:message key="JobListing"/></a></li>
-	                           <li><a href="/SWRW/applicant/resume/complete_resume"><fmt:message key="SubmitResume"/></a></li>		 
+	                           <li><a href="/SWRW/job"><fmt:message key="JobListing"/></a></li>
+	                           <li><a href="/SWRW/applicant/resume/complete_resume"><fmt:message key="CompleteResume_header"/></a></li>		 
 	                           <li><a href="/SWRW/register"><fmt:message key="Register"/></a></li>
 	                        </ul>
 	                     </li>
@@ -112,9 +125,9 @@
 	                        <a class="nav-link" href="javascript:;"><fmt:message key="Company"/></a>
 	                        <ul>
 	                           <li><a href="/SWRW/company"><fmt:message key="Company"/></a></li>
-	                           <li><a href="/SWRW/user/mycenter"><fmt:message key="CompanyCertification"/></a></li>
+	                           <li><a href="/SWRW/user/mycenter?mode=CompanyCertification"><fmt:message key="CompanyCertification"/></a></li>
 	                           <li><a href="/SWRW/company/job/post_job"><fmt:message key="PostJob"/></a></li>
-	                           <li><a href="/SWRW/register?type=company"><fmt:message key="Register"/></a></li>
+	                           <li><a href="/SWRW/register?mode=company"><fmt:message key="Register"/></a></li>
 	                        </ul>
 	                     </li>
 							</c:otherwise>

@@ -141,7 +141,7 @@
 										
 										<!-- 企业注册 -->
 										<div class="form-group" style="margin-top:10px">
-											<input class="form-check-input" type="checkbox" id="businessRegister" name="businessRegister" ${param.type==null?'':'checked' }/> 
+											<input class="form-check-input" type="checkbox" id="businessRegister" name="businessRegister" ${param.mode=='company'?'checked':'' }/> 
 											<label class="form-check-label" for="businessRegister"><fmt:message key="BusinessRegistration" /></label>
 										</div>
 										

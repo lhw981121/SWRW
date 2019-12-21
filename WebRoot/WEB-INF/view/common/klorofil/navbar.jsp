@@ -12,14 +12,14 @@
 		<div class="navbar-btn">
 			<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 		</div>
-      <c:if test="${currentURL.indexOf(\"/message/\")!=-1 }">
+      <%-- <c:if test="${currentURL.indexOf(\"/message/\")!=-1 }"> --%>
 		<form class="navbar-form navbar-left">
 			<div class="button-group" style="margin-left:2cm">
 				<a class="btn btn-primary" href="javascript:(void);" onclick="changeLanguage('en_US');"><fmt:message key="English"/></a>&emsp;
 				<a class="btn btn-primary" href="javascript:(void);" onclick="changeLanguage('zh_CN');"><fmt:message key="Chinese"/></a>
 			</div>
 		</form>
-		</c:if>
+		<%-- </c:if> --%>
 			<div id="navbar-menu">
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
@@ -37,7 +37,7 @@
 	            <ul class="dropdown-menu">
 	            
 					<c:if test="${user.getType()==8 }">
-						<li><a href="/SWRW/admin" target="_blank"><span><i class="fa fa-credit-card-alt"></i> <fmt:message key="Admin" /></span></a></li>
+						<li><a href="/SWRW/admin" target="_self"><span><i class="fa fa-credit-card-alt"></i> <fmt:message key="Admin" /></span></a></li>
 					</c:if>
 
 					<c:choose>
@@ -59,7 +59,7 @@
 					</c:choose>
 					
 					<c:choose>
-					<c:when test="${currentURL.indexOf(\"/set/\")!=-1 }">
+					<c:when test="${currentURL.indexOf(\"/setting/\")!=-1 }">
 						<li><a href="/SWRW/setting" target="_self"><i class="lnr lnr-cog"></i> <span>设置</span></a></li>
 					</c:when>
 					<c:otherwise>

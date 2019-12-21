@@ -10,9 +10,9 @@
 
 </head>
 <body>
-	<!-- start-公共页眉 -->
-	<%@include file="/WEB-INF/view/common/swrw/header.jsp"%>
-	<!-- end-公共页眉 -->
+<!-- start-公共页眉 -->
+<%@include file="/WEB-INF/view/common/swrw/header.jsp"%>
+<!-- end-公共页眉 -->
 
 	<!---start header-banner -->
 	<div class="header-banner clearfix"
@@ -48,16 +48,16 @@
 		</div>
 	</main>
 
-	<!-- start-公共页脚 -->
-	<%@include file="/WEB-INF/view/common/swrw/footer.jsp"%>
-	<!-- end-公共页脚 -->
+<!-- start-公共页脚 -->
+<%@include file="/WEB-INF/view/common/swrw/footer.jsp"%>
+<!-- end-公共页脚 -->
 
-	<!-- start-页面预载 -->
-	<%@include file="/WEB-INF/view/common/swrw/preloader.jsp"%>
-	<!-- end-页面预载 -->
+<!-- start-页面预载 -->
+<%@include file="/WEB-INF/view/common/swrw/preloader.jsp"%>
+<!-- end-页面预载 -->
 
-	<!-- start-公共脚本 -->
-	<%@include file="/WEB-INF/view/common/swrw/javaScript.jsp"%>
-	<!-- end-公共脚本 -->
+<!-- start-公共脚本 -->
+<%@include file="/WEB-INF/view/common/swrw/javaScript.jsp"%>
+<!-- end-公共脚本 -->
 </body>
 </html>

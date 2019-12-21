@@ -72,11 +72,10 @@
 							</div>
 						</div>
 						<div class="panel-body">
-							<p style="text-indent: 2em;">${mes.getContent() }</p>
+							<p>${mes.getContent() }</p>
 						</div>
 						<div class="panel-footer">
-							<span>#${floor.count+startFloor}</span> <span
-								style="margin-left:50px;">${language.equals("en_US")?"Identifier":"编号"}:${mes.getIden() }</span>
+							<span>#${floor.count+startFloor}</span> <span style="margin-left:50px;">${language.equals("en_US")?"Identifier":"编号"}:${mes.getIden() }</span>
 							<div class="text-center" style="margin-top:-27px;">
 								<a type="button" onclick="markMessageRead(${mes.getID() })" class="btn btn-success">${language.equals("en_US")?"Mark as Read":"标为已读"}</a>
 							</div>

@@ -19,6 +19,18 @@ function getAuditState(state){
 	default:return "";
 	}
 }
+/*获取职位状态 -2审核未通过 -1等待审核 0不可用  1招聘中 2已暂停 3已结束*/
+function getJobState(state){
+	switch(state){
+	case -2:return "<span style='color: red'><i class='fa fa-warning'></i>审核未通过</span>";
+	case -1:return "<span><i class='fa fa-spinner fa-spin'></i>等待审核</span>";
+	case 0:return "<span style='color: red'><i class='fa fa-times-circle'></i>不可用</span>";
+	case 1:return "<span class='text-success'><i class='fa fa-play-circle'></i>招聘中</span>";
+	case 2:return "<span class='text-info'><i class='fa fa-pause-circle'></i>已暂停</span>";
+	case 3:return "<span class='text-danger'><i class='fa fa-stop-circle'></i>已结束</span>";
+	default:return "";
+	}
+}
 
 /*<!-- 语言切换脚本 -->*/
 function changeLanguage(lan){
@@ -77,6 +89,17 @@ function IfNull(str){
 	}
 }
 
+//通过Date得到年龄
+function DateToAge(birthday){
+	if(birthday.length==0)	return '';
+    //出生时间 毫秒
+    var birthDayTime = new Date(birthday).getTime(); 
+    //当前时间 毫秒
+    var nowTime = new Date().getTime(); 
+    //一年毫秒数(365 * 86400000 = 31536000000)
+    return Math.floor((nowTime-birthDayTime)/31536000000);
+}
+
 //Date格式文本格式化
 function DateFormat(date, format) {
 	if(date.length==0)	return '';
@@ -97,6 +120,49 @@ function DateFormat(date, format) {
         if (new RegExp('(' + k + ')').test(format))
             format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length));
     return format;
+}
+
+//将Date转换成距当前时间长度格式
+function FromTodayFormat(date) {
+	if(date.length==0)	return '';
+	var timestamp = parseInt(new Date(date).getTime() / 1000);
+	function zeroize(num) {
+		return (String(num).length == 1 ? '0' : '') + num;
+	}
+
+	var curTimestamp = parseInt(new Date().getTime() / 1000); //当前时间戳
+	var timestampDiff = curTimestamp - timestamp; // 参数时间戳与当前时间戳相差秒数
+
+	var curDate = new Date(curTimestamp * 1000); // 当前时间日期对象
+	var tmDate = new Date(timestamp * 1000); // 参数时间戳转换成的日期对象
+
+	var Y = tmDate.getFullYear(),m = tmDate.getMonth() + 1,d = tmDate.getDate();
+	var H = tmDate.getHours(),i = tmDate.getMinutes(),s = tmDate.getSeconds();
+
+	if (timestampDiff < 60) { // 一分钟以内
+		return language=="zh_CN"?"刚刚":"recently";
+	} else if (timestampDiff < 3600) { // 一小时前之内
+		return Math.floor(timestampDiff / 60) + language=="zh_CN"?"分钟前":"minutes ago";
+	} else if (curDate.getFullYear() == Y && curDate.getMonth() + 1 == m && curDate.getDate() == d) {
+		return (language=="zh_CN"?"今天":"Today") + zeroize(H) + ':' + zeroize(i);
+	} else {
+		var newDate = new Date((curTimestamp - 86400) * 1000); // 参数中的时间戳加一天转换成的日期对象
+		if (newDate.getFullYear() == Y && newDate.getMonth() + 1 == m && newDate.getDate() == d) {
+			return (language=="zh_CN"?"昨天":"Yesterday") + zeroize(H) + ':' + zeroize(i);
+		} else if (curDate.getFullYear() == Y) {
+			if(language=="zh_CN"){
+				return zeroize(m) + '月' + zeroize(d) + '日 ' + zeroize(H) + ':' + zeroize(i);
+			}else{
+				return zeroize(m) + '.' + zeroize(d) + ' ' + zeroize(H) + ':' + zeroize(i);
+			}
+		} else {
+			if(language=="zh_CN"){
+				return Y + '年' + zeroize(m) + '月' + zeroize(d) + '日 ' + zeroize(H) + ':' + zeroize(i);
+			}else{
+				return zeroize(m) + '/' + zeroize(d) + '/' + Y + ' ' + zeroize(H) + ':' + zeroize(i);
+			}
+		}
+	}
 }
 
 //邮箱隐藏
@@ -170,28 +236,50 @@ function settime(obj,input) {
 	setTimeout(function () {settime(obj,input)}, 1000)
 }
 
+//提示登录
+function UserNotLogin(){
+	swal({
+		title: language=='zh_CN'?"操作禁止":"Prohibit Operating",
+		text: language=='zh_CN'?"你是游客，请先登录！":"You are a tourist, please log in first!",
+		type: "warning",
+		confirmButtonText: language=='zh_CN'?"关闭":"Close",
+		closeOnConfirm: false
+	},
+	function(){
+		window.location.replace("/SWRW/login");
+	});
+}
+
 //检测用户是否访问受限
 function UserLimitedAccess(){
 	var str;
-	if(limitedAccess==1){
+	if(limitedAccess==1){//求职者访问企业页面
 		str=language=='zh_CN'?"你是求职者，不能访问企业页面！":"You are a job seeker and cannot access the corporate page!";
 	}
-	if(limitedAccess==2){
+	if(limitedAccess==2){//企业访问求职者页面
 		str=language=='zh_CN'?"你是企业，不能访问求职者页面！":"You are a business and cannot visit the job seeker page!";
 	}
-	if(limitedAccess==3){
+	if(limitedAccess==3){//非管理员访问管理员页面
 		str=language=='zh_CN'?"管理员页面拒绝访问！":"The admin page is denied access!";
+	}
+	if(limitedAccess==4){//企业未认证访问职位页面
+		str=language=='zh_CN'?"未通过企业资质认证！\n通过企业资质认证才能发布招聘并管理职位。":"Not through the enterprise qualification certification!\nOnly through the enterprise qualification certification can post the recruitment and management position.";
 	}
 	if(limitedAccess.length != 0){
 		swal({
-		  title: language=='zh_CN'?"访问受限":"Limited Access",
-		  text: str,
-		  type: "warning",
-		  confirmButtonText: language=='zh_CN'?"关闭":"Close",
-		  closeOnConfirm: false
+			title: language=='zh_CN'?"访问受限":"Limited Access",
+			text: str,
+			type: "warning",
+			confirmButtonText: language=='zh_CN'?"关闭":"Close",
+			closeOnConfirm: false
 		},
 		function(){
-			window.location.replace("/SWRW/index");
+			if(limitedAccess<=3){
+				window.location.replace("/SWRW/index");
+			}
+			if(limitedAccess==4){
+				window.location.replace("/SWRW/user/mycenter?mode=CompanyCertification");
+			}
 		});
 	}
 }
@@ -249,7 +337,7 @@ function RefreshNewMessage(){
 				$.each(newMes, function (index, mes) {
 					var mesTime = new Date(DateFormat(mes.created_at,"yyyy-MM-dd HH:mm:ss")).getTime();
 					var nowTime = new Date().getTime();
-					if(nowTime-mesTime<1000){
+					if(nowTime-mesTime<900){
 						NewMessageTip(mes.message_summary);
 					}
 					if(index==10){//只展示10条消息
