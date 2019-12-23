@@ -27,7 +27,7 @@ public class SendEmail {
     
     @SuppressWarnings("static-access")
 	public boolean send(String to,String title,String content) throws Exception{
-    	if(!checkEmail(to))	return false;
+    	//if(!checkEmail(to))	return false;
     	this.to=to;
     	this.title=title;
     	this.content=content;
@@ -87,16 +87,16 @@ public class SendEmail {
         mimeMsg.setRecipients(MimeMessage.RecipientType.TO,tos);//设置收件人，抄送*/        
     }
 	
-	public boolean checkEmail(String email) {
-        if (!email.matches("[\\w\\.\\-]+@([\\w\\-]+\\.)+[\\w\\-]+")) {
+	public static boolean checkEmail(String email) {
+		if (!email.matches("[\\w\\.\\-]+@([\\w\\-]+\\.)+[\\w\\-]+")) {
             return false;
         }
-
+  
         String host = "";
         String hostName = email.split("@")[1];
         Record[] result = null;
         SMTPClient client = new SMTPClient();
-
+  
         try {
             // 查找MX记录
             Lookup lookup = new Lookup(hostName, Type.MX);
@@ -106,7 +106,7 @@ public class SendEmail {
             } else {
                 result = lookup.getAnswers();
             }
-
+  
             // 连接到邮箱服务器
             for (int i = 0; i < result.length; i++) {
                 host = result[i].getAdditionalName().toString();
@@ -118,7 +118,6 @@ public class SendEmail {
                     break;
                 }
             }
-
             //以下2项自己填写快速的，有效的邮箱
             client.login("163.com");
             client.setSender("sxgkwei@163.com");
@@ -129,11 +128,15 @@ public class SendEmail {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
+            try{
                 client.disconnect();
             } catch (IOException e) {
             }
         }
         return false;
     }
+	
+	public static void main(String[] args) {
+		System.out.print(SendEmail.checkEmail("zhanbo163_a@163.com"));
+	}
 }

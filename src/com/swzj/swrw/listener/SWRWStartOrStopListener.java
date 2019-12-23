@@ -4,7 +4,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-//import com.swzj.swrw.util.RefreshJobState;
+import com.swzj.swrw.util.RefreshJobState;
 
 /**
  * Application Lifecycle Listener implementation class RefreshJobState
@@ -32,7 +32,7 @@ public class SWRWStartOrStopListener implements ServletContextListener {
      */
     public void contextInitialized(ServletContextEvent sce)  { 
     	//定时刷新所有职位的招聘状态
-        //new RefreshJobState();
+        new RefreshJobState();
     }
 	
 }

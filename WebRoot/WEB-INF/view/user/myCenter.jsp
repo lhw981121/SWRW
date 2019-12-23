@@ -250,30 +250,32 @@ table td p:nth-child(1) {margin: 10px 0;}
 	<%@include file="/WEB-INF/view/user/myCenterModal.jsp" %>
 <script>
 $(function () {
-	//根据页面参数打开模态框
-	switch('${param.mode}'){
-		case 'CompanyCertification':
-			if(${company.getState() <= 0}){
-				$('#CompanyCertificationBtn').click();
-			}else{
-				swal({
-					title: language=='zh_CN'?'企业已认证':'Company Certified',
-					text: language=='zh_CN'?'你的企业已通过资质认证！无需重复认证。':'Your company has been certified!\nNo need for duplicate authentication.',
-					type: 'warning',
-				});
-			}
-			break;
-		case 'Credential':
-			if(${company.getState() > 0}){
-				$('#CredentialBtn').click();
-			}else{
-				swal({
-					title: language=='zh_CN'?'企业未认证':'Company Not Certified',
-					text: language=='zh_CN'?'你的企业未通过资质认证！快去提交认证。':'Your business has not passed the qualification certification! \nGo submit the certification.',
-					type: 'error',
-				});
-			}
-			break;	
+	if(${user.getType()}==2){
+		//根据页面参数打开模态框
+		switch('${param.mode}'){
+			case 'CompanyCertification':
+				if(${company.getState() <= 0}){
+					$('#CompanyCertificationBtn').click();
+				}else{
+					swal({
+						title: language=='zh_CN'?'企业已认证':'Company Certified',
+						text: language=='zh_CN'?'你的企业已通过资质认证！无需重复认证。':'Your company has been certified!\nNo need for duplicate authentication.',
+						type: 'warning',
+					});
+				}
+				break;
+			case 'Credential':
+				if(${company.getState() > 0}){
+					$('#CredentialBtn').click();
+				}else{
+					swal({
+						title: language=='zh_CN'?'企业未认证':'Company Not Certified',
+						text: language=='zh_CN'?'你的企业未通过资质认证！快去提交认证。':'Your business has not passed the qualification certification! \nGo submit the certification.',
+						type: 'error',
+					});
+				}
+				break;	
+		}
 	}
 })
 </script>

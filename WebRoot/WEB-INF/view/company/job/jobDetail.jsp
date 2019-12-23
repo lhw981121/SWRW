@@ -49,7 +49,7 @@
 									<a href="javascript:;" title="更换职位头像"> 
 										<img src="/SWRW/public/images/company/job/${job.ID }.jpg?t=${Math.random()}" id="job_head_${job.ID }"
 										onclick="$('#changeJobHeadModal').modal('show');$('#manage_job_id').val('${job.ID }');"
-										alt="image" onerror="this.src='/SWRW/public/images/company/job/1.png';this.onerror=null" />
+										alt="image" onerror="this.src='/SWRW/public/images/company/job/-'+parseInt(Math.random()*(12-1+1)+1,10)+'.png';this.onerror=null" />
 									</a>
 								</div>
 								<div class="job-meta">

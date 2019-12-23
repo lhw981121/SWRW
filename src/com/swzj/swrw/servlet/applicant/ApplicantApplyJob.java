@@ -2,6 +2,7 @@ package com.swzj.swrw.servlet.applicant;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,6 +61,7 @@ public class ApplicantApplyJob extends HttpServlet {
 		
 		boolean isOK = false;
 		if(mode.equals("repeat")) {//重新申请
+			jobApply.setCreated(new Date());
 			isOK = jobApplyDao.updateJobApply(jobApply);
 		}else {//首次申请
 			isOK = new JobApplyDao().createJobApply(jobApply)!=0;
@@ -75,8 +77,8 @@ public class ApplicantApplyJob extends HttpServlet {
         	//消息概述
         	String message_summary = "收到来自 "+applicant.getName()+" 的简历";
         	//消息内容
-        	String message_content = applicant.getName()+" 向你的职位 "+job.getName()+" 投递了简历，等待阅览。"
-        			+ "<a href='/SWRW/company/job/resume_detail?applicant_id="+applicant.getApplicantID()+"'>查看简历</a>";
+        	String message_content = applicant.getName()+" 向你的职位 <a href='/SWRW/company/job/job_detail?job_id="+job.getID()+"'>"+job.getName()+"</a> 投递了简历，等待阅览。"
+        			+ "<a href='/SWRW/company/job/resume_detail?applicant_id="+applicant.getApplicantID()+"&job_id="+job.getID()+"'>查看简历</a>";
         	//消息发送者用户ID
         	int sender_id = 1;//系统消息
         	//消息接收者用户ID
@@ -87,7 +89,8 @@ public class ApplicantApplyJob extends HttpServlet {
         	//消息概述
         	message_summary = "成功向职位 "+job.getName()+" 投递简历";
         	//消息内容
-        	message_content = "你已成功向职位 "+job.getName()+" 投递了简历，祝你顺利入职！去<a href='/SWRW/applicant/resume/complete_resume'>完善简历</a>";
+        	message_content = "你已成功向职位 <a href='/SWRW/job/job_detail?job_id="+job.getID()+"'>"+job.getName()+"</a> 投递了简历，祝你顺利入职！"
+        			+ "去<a href='/SWRW/applicant/resume/complete_resume'>完善简历</a>";
         	//消息发送者用户ID
         	sender_id = 1;//系统消息
         	//消息接收者用户ID

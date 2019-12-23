@@ -15,6 +15,34 @@ function checkUser_email(){
 		    return false;  
 	    }else{
 			return true;
+			/*检测邮箱是否真实存在*/
+			/*var isExist = false;
+			$.ajax({
+				type:"post",
+				url:"/SWRW/TextEmailRealExist",
+				datatype: "json",
+				async:false,
+				data:{
+					"email":value,
+				},
+				success:function(result) {
+					var r = JSON.parse(result);
+					if(r.isExist==true){
+						isExist = true;
+					}else{
+						iziToast.error({
+							title: language=='zh_CN'?"不存在":"Absence",
+							message: language=='zh_CN'?"检测到该邮箱非真实存在，无法使用！":"The mailbox is not real and cannot be used!",
+							position: 'bottomRight',
+							transitionIn: 'bounceInLeft',
+						});
+					}
+				},
+				error:function(){
+					AjaxError();
+				}
+			});
+			return isExist;*/
 		}
 	}
 }

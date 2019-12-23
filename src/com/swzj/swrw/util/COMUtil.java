@@ -252,8 +252,11 @@ public class COMUtil {
         write.write(decoderBytes);
         write.close();
         System.out.print(path);
+        //目录不存在新建
+        File newFile = new File("C:/Wokespaces/SWRW/WebRoot/" + path.substring(44));
+        if(!newFile.exists()){newFile.mkdirs(); }
         //输出文件到本机目录
-        write = new FileOutputStream(new File("C:/Wokespaces/SWRW/WebRoot/" + path.substring(44) + "/" + imgName));
+        write = new FileOutputStream(new File(newFile + "/" + imgName));
         write.write(decoderBytes);
         write.close();
     }

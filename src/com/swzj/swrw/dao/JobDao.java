@@ -301,8 +301,8 @@ public class JobDao {
     		+ (company_state==4?"company_state>0":"company_state=?")+" "
     		+ (company_size.length()==0?"":"and company_size=? ")
     		+ (company_type.length()==0?"":"and company_type=? ")
-    		+ (queryStr.length()==0?") ":"or concat(ifnull(company_name,''),ifnull(company_area,'')) like ?) " 
-    		+ "and concat(ifnull(job_name,''),ifnull(job_area,''),ifnull(job_desc,'')) like ? ");
+    		+ (queryStr.length()==0?") ":"and concat(ifnull(company_name,''),ifnull(company_area,'')) like ?) " 
+    		+ "or concat(ifnull(job_name,''),ifnull(job_area,''),ifnull(job_desc,'')) like ? ");
 	        pstmt = conn.prepareStatement(sqlQuery);
 	        if(job_state!=4&&job_state!=5)	pstmt.setInt(index++, job_state);
 	        pstmt.setString(index++, "%"+job_area+"%");
@@ -354,8 +354,8 @@ public class JobDao {
 			+ (company_state==4?"company_state>0":"company_state=?")+" "
 			+ (company_size.length()==0?"":"and company_size=? ")
 			+ (company_type.length()==0?"":"and company_type=? ")
-			+ (queryStr.length()==0?") ":"or concat(ifnull(company_name,''),ifnull(company_area,'')) like ?) " 
-			+ "and concat(ifnull(job_name,''),ifnull(job_area,''),ifnull(job_desc,'')) like ? ")
+			+ (queryStr.length()==0?") ":"and concat(ifnull(company_name,''),ifnull(company_area,'')) like ?) " 
+			+ "or concat(ifnull(job_name,''),ifnull(job_area,''),ifnull(job_desc,'')) like ? ")
     		+ "order by "+(sortField.length()==0?"job_id":sortField)+" limit ?,?";
 	        pstmt = conn.prepareStatement(sqlQuery);
 	        if(job_state!=4&&job_state!=5)	pstmt.setInt(index++, job_state);

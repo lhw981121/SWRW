@@ -45,8 +45,8 @@ public class BrowseResume extends HttpServlet {
 		Job job = new JobDao().queryJobByID(job_id);
 		if(job!=null&&job.getCompanyID()==company_id) {
 			request.setAttribute("job", job);
-			request.setAttribute("company", company);
 		}
+		request.setAttribute("company", company);
 		
 		request.getRequestDispatcher("/WEB-INF/view/company/job/browseResume.jsp").forward(request, response);
 	}

@@ -169,6 +169,7 @@
 <!-- 自定义脚本 -->
 <script>
 var job_id = '${job==null?0:job.ID}';
+var company_id = job_id==0?'${company.ID}':0;
 </script>
 <script src="/SWRW/public/js/company/company_browseResume.js"></script>
 </body>

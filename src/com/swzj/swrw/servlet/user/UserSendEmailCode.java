@@ -78,7 +78,7 @@ public class UserSendEmailCode extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		if(session.getAttribute("language").equals("zh_CN")) {
-			map.put("errorMes","邮箱不存在或遇到未知问题，请重试或联系管理员！");
+			map.put("errorMes","检测到该邮箱不存在或遇到未知问题，请重试、更换邮箱或联系管理员！");
 			map.put("successMes","邮件发送成功！请注意查收。");
 		}else if(session.getAttribute("language").equals("en_US")){
 			map.put("errorMes","Mailbox does not exist or encounter unknown problem, please try again or contact administrator!");

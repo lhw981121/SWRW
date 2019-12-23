@@ -21,7 +21,7 @@
 				<div class="col-md-12">
 					<div class="banner-text text-center">
 						<h1>
-							<fmt:message key="Company" />
+							${company.name }
 						</h1>
 						<ul class="breadcumb list-inline">
 							<li class="list-inline-item"><a href="/SWRW/index"><fmt:message key="Home" /></a></li>

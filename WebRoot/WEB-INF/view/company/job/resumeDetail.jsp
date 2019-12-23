@@ -183,7 +183,18 @@
 								</c:if>
 								</tbody>
 							</table>
-							
+							<c:if test="${jobApply.state==1 }">
+								<div style="text-align:center">
+									<button class="btn btn-success" onclick="HireApplicant(${jobApply.ID})"><fmt:message key="HireApplicant" /></button>
+									<button class="btn btn-warning" onclick="ShortlistApplicant(${jobApply.ID})"><fmt:message key="ShortlistApplicant" /></button>
+									<button class="btn btn-danger" onclick="RejectedApplicant(${jobApply.ID})"><fmt:message key="RejectedApplicant" /></button>
+								</div>
+							</c:if>
+							<c:if test="${jobApply.state==2 }">
+								<div style="text-align:center">
+									<button class="btn btn-success" ><fmt:message key="Accepted" /></button>
+								</div>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -202,5 +213,6 @@
 <!-- start-公共脚本 -->
 <%@include file="/WEB-INF/view/common/swrw/javaScript.jsp"%>
 <!-- end-公共脚本 -->
+<script src="/SWRW/public/js/company/company_resumeDetail.js"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,14 +112,18 @@ public class JobApplyDao {
 			+ "job_id=?,"
 			+ "applicant_id=?,"
 			+ "apply_state=?,"
-			+ "deleted=? "
+			+ "deleted=?,"
+			+ "created_at=?,"
+			+ "updated_at=? "
 			+ "where apply_id=?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, jobApply.getJobID());
 			pstmt.setInt(2, jobApply.getApplicantID());
 			pstmt.setInt(3, jobApply.getState());
 			pstmt.setInt(4, jobApply.getIsDeleted()?1:0);
-			pstmt.setInt(5, jobApply.getID());
+			pstmt.setTimestamp(5, new Timestamp(jobApply.getCreated().getTime()));
+			pstmt.setTimestamp(6, new Timestamp(jobApply.getUpdated().getTime()));
+			pstmt.setInt(7, jobApply.getID());
 			pstmt.executeUpdate();
 	    }catch(Exception e) {
 	    	e.printStackTrace();
@@ -157,11 +162,21 @@ public class JobApplyDao {
 	}
 	
 	/**
+	* 按职位申请ID查找职位申请信息
+	* @param apply_id
+	* @return 职位申请对象
+	*/
+	public JobApply queryJobApplyByID(int apply_id){
+		List<JobApply> jobApplys = queryJobApplyBySingleData("apply_id",String.valueOf(apply_id));
+		return jobApplys.size()==0?null:jobApplys.get(0);
+	}
+	
+	/**
 	* 按职位ID查找职位申请信息
 	* @param job_id
 	* @return 职位申请对象列表
 	*/
-	public List<JobApply> queryJobApplyByID(int job_id){
+	public List<JobApply> queryJobApplyByJobID(int job_id){
 		List<JobApply> jobApplys = queryJobApplyBySingleData("job_id",String.valueOf(job_id));
 		return jobApplys;
 	}
@@ -171,7 +186,7 @@ public class JobApplyDao {
 	* @param applicant_id
 	* @return 职位申请对象列表
 	*/
-	public List<JobApply> queryJobByCompanyID(int applicant_id){
+	public List<JobApply> queryJobApplyByApplicantID(int applicant_id){
 		List<JobApply> jobApplys = queryJobApplyBySingleData("applicant_id",String.valueOf(applicant_id));
 		return jobApplys;
 	}
@@ -207,12 +222,13 @@ public class JobApplyDao {
 	/**
 	* 获取分页职位申请信息数据总数量
 	* @param job_id 职位ID 0(不考虑)
+	* @param company_id 所属企业ID 0(不考虑)
 	* @param applicant_id 0(不考虑)
 	* @param apply_state 职位申请状态 0(不考虑)、1(申请)、2(面试)、3(驳回)
 	* @param deleted 是否已删除 0(未删除)、1(已删除)
 	* @return 数据总数量
 	*/
-	public int getPageDataJobApplyCount(int job_id,int applicant_id,int apply_state,int deleted) {
+	public int getPageDataJobApplyCount(int job_id,int company_id,int applicant_id,int apply_state,int deleted) {
 		int count = 0;
 	    Connection conn = DBUtil.getConnection();
 	    PreparedStatement pstmt = null;
@@ -222,12 +238,16 @@ public class JobApplyDao {
 	        String sqlQuery = 
     		"select count(*) from tb_jobapply "
     		+ "where deleted=? "
-    		+ (job_id==0?"":"and job_id=? ")
+    		+ (job_id==0?(company_id==0?"":"and job_id in (select job_id from tb_job where company_id=?) "):"and job_id=? ")
     		+ (applicant_id==0?"":"and applicant_id=? ")
     		+ (apply_state==0?"":"and apply_state=? ");
 	        pstmt = conn.prepareStatement(sqlQuery);
 	        pstmt.setInt(index++, deleted);
-	        if(job_id!=0)	pstmt.setInt(index++, job_id);
+	        if(job_id==0&&company_id!=0) {
+	        	pstmt.setInt(index++, company_id);
+	        }else if(job_id!=0) {
+	        	pstmt.setInt(index++, job_id);
+	        }
 	        if(applicant_id!=0)	pstmt.setInt(index++, applicant_id);
 	        if(apply_state!=0)	pstmt.setInt(index++, apply_state);
 	        rs = pstmt.executeQuery();
@@ -248,13 +268,14 @@ public class JobApplyDao {
 	* @param pageNo 当前页
 	* @param pageSize 每页记录数
 	* @param job_id 职位ID 0(不考虑)
+	* @param company_id 所属企业ID 0(不考虑)
 	* @param applicant_id 0(不考虑)
 	* @param apply_state 职位申请状态 0(不考虑)、1(申请)、2(面试)、3(驳回)
 	* @param deleted 是否已删除 0(未删除)、1(已删除)
 	* @param sortField 排序字段及排序方式 ASC(升序)、DESC(降序)
 	* @return 职位申请对象List
 	*/
-	public List<JobApply> getPageDataJobApply(int pageNo,int pageSize,int job_id,int applicant_id,int apply_state,int deleted,String sortField) {
+	public List<JobApply> getPageDataJobApply(int pageNo,int pageSize,int job_id,int company_id,int applicant_id,int apply_state,int deleted,String sortField) {
 		List<JobApply> list = new ArrayList<JobApply>();
 	    Connection conn = DBUtil.getConnection();
 	    PreparedStatement pstmt = null;
@@ -264,13 +285,17 @@ public class JobApplyDao {
 	        String sqlQuery = 
     		"select * from tb_jobapply "
     		+ "where deleted=? "
-    		+ (job_id==0?"":"and job_id=? ")
+    		+ (job_id==0?(company_id==0?"":"and job_id in (select job_id from tb_job where company_id=?) "):"and job_id=? ")
     		+ (applicant_id==0?"":"and applicant_id=? ")
     		+ (apply_state==0?"":"and apply_state=? ")
     		+ "order by "+(sortField.length()==0?"apply_id":sortField)+" limit ?,?";
 	        pstmt = conn.prepareStatement(sqlQuery);
 	        pstmt.setInt(index++, deleted);
-	        if(job_id!=0)	pstmt.setInt(index++, job_id);
+	        if(job_id==0&&company_id!=0) {
+	        	pstmt.setInt(index++, company_id);
+	        }else if(job_id!=0) {
+	        	pstmt.setInt(index++, job_id);
+	        }
 	        if(applicant_id!=0)	pstmt.setInt(index++, applicant_id);
 	        if(apply_state!=0)	pstmt.setInt(index++, apply_state);
 	        pstmt.setInt(index++, pageSize * (pageNo-1));

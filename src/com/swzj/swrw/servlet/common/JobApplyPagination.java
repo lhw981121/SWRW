@@ -41,8 +41,9 @@ public class JobApplyPagination extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("pageNo")==null||request.getParameter("job_id")==null||request.getParameter("applicant_id")==null||
-				request.getParameter("apply_state")==null||request.getParameter("deleted")==null||request.getParameter("sortField")==null){
+		if(request.getParameter("pageNo")==null||request.getParameter("job_id")==null||request.getParameter("company_id")==null||
+				request.getParameter("applicant_id")==null||request.getParameter("apply_state")==null||request.getParameter("deleted")==null||
+				request.getParameter("sortField")==null){
 				response.sendRedirect("/SWRW/index");
 			return;
 		}
@@ -50,6 +51,8 @@ public class JobApplyPagination extends HttpServlet {
 		int pageNo = Integer.valueOf(request.getParameter("pageNo"));
 		//职位ID
 		int job_id = Integer.valueOf(request.getParameter("job_id"));
+		//所属职位ID
+		int company_id = Integer.valueOf(request.getParameter("company_id"));
 		//求职者ID
 		int applicant_id = Integer.valueOf(request.getParameter("applicant_id"));
 		//职位申请状态
@@ -60,21 +63,26 @@ public class JobApplyPagination extends HttpServlet {
 		String sortField = request.getParameter("sortField");
 		//获取单页记录数
 		int pageSize = request.getSession().getAttribute("pageSize")==null?10:Integer.valueOf(request.getSession().getAttribute("pageSize").toString());
-		
 		Map<String,Object> map = new HashMap<String,Object>();
 		//获取分页数据总量
-		int recordCount = new JobApplyDao().getPageDataJobApplyCount(job_id, applicant_id, apply_state, deleted);
+		int recordCount = new JobApplyDao().getPageDataJobApplyCount(job_id, company_id, applicant_id, apply_state, deleted);
 		//实例化分页对象
 		Pagination pagination = new Pagination(recordCount,pageNo,pageSize);
 		//获取分页数据
-		List<JobApply> jobApplys = new JobApplyDao().getPageDataJobApply(pagination.getPageNo(), pageSize, job_id, applicant_id, apply_state, deleted, sortField);
-		List<Job> jobs = new ArrayList<Job>();
+		List<JobApply> jobApplys = new JobApplyDao().getPageDataJobApply(pagination.getPageNo(), pageSize, job_id, company_id, applicant_id, apply_state, deleted, sortField);
+		List<Job> jobs = new ArrayList<Job>();Job job = new Job();
 		JobDao jobDao = new JobDao();
-		List<BasicInfo> basicInfos = new ArrayList<BasicInfo>();
+		List<BasicInfo> basicInfos = new ArrayList<BasicInfo>();BasicInfo basicInfo = new BasicInfo();
 		BasicInfoDao basicInfoDao = new BasicInfoDao();
 		for(JobApply jobApply : jobApplys) {
-			jobs.add(jobDao.queryJobByID(jobApply.getJobID()));
-			basicInfos.add(basicInfoDao.queryBasicInfoByID(jobApply.getApplicantID()));
+			job = jobDao.queryJobByID(jobApply.getJobID());
+			jobs.add(job);
+			basicInfo = basicInfoDao.queryBasicInfoByID(jobApply.getApplicantID());
+			basicInfo.setJobIntension(job.getName());//暂存申请的职位名称
+			basicInfo.setResidentLoc(String.valueOf(jobApply.getID()));//暂存职位申请ID
+			basicInfo.setCreated(jobApply.getCreated());//暂存申请的时间
+			basicInfo.setCurrentLoc(String.valueOf(job.getID()));;//暂存申请的职位ID
+			basicInfos.add(basicInfo);
 		}
 		map.put("jobs", jobs);
 		map.put("basicInfos", basicInfos);

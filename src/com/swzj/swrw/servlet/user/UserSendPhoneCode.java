@@ -35,7 +35,6 @@ public class UserSendPhoneCode extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unused")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("user_phone")==null) {
 			response.sendRedirect("/SWRW/index");
@@ -46,12 +45,12 @@ public class UserSendPhoneCode extends HttpServlet {
 		String code = getPhoneCode();
 		
 		boolean isOK = true;
-        /*try {
+        try {
 			isOK = phone.sendPhoneCode(user_phone, code);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
         if(isOK==true) {
         	Logger.getLogger(getClass()).info("神葳总局成功给 "+user_phone+" 发送手机短信！ 验证码："+code);
         }else {

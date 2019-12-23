@@ -142,7 +142,7 @@ function FromTodayFormat(date) {
 	if (timestampDiff < 60) { // 一分钟以内
 		return language=="zh_CN"?"刚刚":"recently";
 	} else if (timestampDiff < 3600) { // 一小时前之内
-		return Math.floor(timestampDiff / 60) + language=="zh_CN"?"分钟前":"minutes ago";
+		return Math.floor(timestampDiff / 60) + (language=="zh_CN"?"分钟前":"minutes ago");
 	} else if (curDate.getFullYear() == Y && curDate.getMonth() + 1 == m && curDate.getDate() == d) {
 		return (language=="zh_CN"?"今天":"Today") + zeroize(H) + ':' + zeroize(i);
 	} else {
@@ -242,8 +242,12 @@ function UserNotLogin(){
 		title: language=='zh_CN'?"操作禁止":"Prohibit Operating",
 		text: language=='zh_CN'?"你是游客，请先登录！":"You are a tourist, please log in first!",
 		type: "warning",
-		confirmButtonText: language=='zh_CN'?"关闭":"Close",
-		closeOnConfirm: false
+		showCancelButton : true,
+		confirmButtonColor : "#1A892E",
+		confirmButtonText : language=='zh_CN'?"登录":"Login",
+		cancelButtonText : language=='zh_CN'?"关闭":"Close",
+		closeOnConfirm : false,
+		closeOnCancel : true
 	},
 	function(){
 		window.location.replace("/SWRW/login");
