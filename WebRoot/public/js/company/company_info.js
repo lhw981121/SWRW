@@ -9,7 +9,7 @@ function checkCompanyName(){
 		ErrorTipBottomLeft(language=='zh_CN'?"企业名称不能为空！":"The company name cannot be empty!");
 	    return false;
 	}else{
-		var reg = /^([\u0391-\uFFE5]|[0-9a-zA-Z])+$/;
+		var reg = /^([\u0391-\uFFE5]|[0-9a-zA-Z\s])+$/;
 	    if(!reg.test(value)){
 	        //不符合规则
 			ErrorTipBottomLeft(language=='zh_CN'?"企业名称输入不符合规范！":"Wrong company name format!");
@@ -32,7 +32,7 @@ function checkCompanyLegal(){
 		ErrorTipBottomLeft(language=='zh_CN'?"企业法人不能为空！":"The company legal person cannot be empty!");
 	    return false;
 	}else{
-		var reg = /^([\u0391-\uFFE5]|[0-9a-zA-Z])+$/;
+		var reg = /^([\u0391-\uFFE5]|[0-9a-zA-Z\s])+$/;
 	    if(!reg.test(value)){
 	        //不符合规则
 			ErrorTipBottomLeft(language=='zh_CN'?"企业法人输入不符合规范！":"Wrong company legal person format!");
@@ -55,7 +55,7 @@ function checkCompanyArea(){
 		ErrorTipBottomLeft(language=='zh_CN'?"企业所在地不能为空！":"The company area cannot be empty!");
 	    return false;
 	}else{
-		var reg = /^([\u0391-\uFFE5]|[a-zA-Z])+$/;
+		var reg = /^([\u0391-\uFFE5]|[a-zA-Z\s])+$/;
 	    if(!reg.test(value)){
 	        //不符合规则
 			ErrorTipBottomLeft(language=='zh_CN'?"企业所在地输入不符合规范！":"Wrong company area format!");
@@ -102,7 +102,7 @@ function checkCompanyBrief(){
 		ErrorTipBottomLeft(language=='zh_CN'?"企业简介不能为空！":"The company brief cannot be empty!");
 	    return false;
 	}else{
-		var reg = /^([\u0391-\uFFE5]|[0-9a-zA-Z])+$/;
+		var reg = /^([\u0391-\uFFE5]|[0-9a-zA-Z\s])+$/;
 	    if(!reg.test(value)){
 	        //不符合规则
 			ErrorTipBottomLeft(language=='zh_CN'?"企业简介输入不符合规范！":"Wrong company brief format!");

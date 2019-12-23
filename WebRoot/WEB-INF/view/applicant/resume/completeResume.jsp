@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.qst.itoffer.util.COMUtil" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,com.swzj.swrw.util.COMUtil" pageEncoding="UTF-8"%>
 <!-- 页面初始化 -->
 <%@include file="/WEB-INF/view/common/swrw/init.jsp"%>
 
@@ -85,7 +85,7 @@
 												<div class="input-group date birthday_date" data-date="" data-date-format="yyyy-mm-dd" 
 												data-link-field="birthday" data-link-format="yyyy-mm-dd">
 													<input class="form-control" type="text" onchange="updateBirthday(this.value)" id="birthday_data"
-													placeholder="<fmt:message key="BirthdayTip" />" title="<fmt:message key="Birthday" />"/>
+													placeholder="<fmt:message key="BirthdayTip" />" title="<fmt:message key="Birthday" />" autocomplete="off"/>
 													<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 												</div>
 												<!-- 邮箱 -->
@@ -154,11 +154,17 @@
 								</div>
 							</div>
 							
-							<!-- 教育经历信息区域 -->
+							
+							<!-- 教育经历信息区域1 -->
 							<div class="row">
-								<div class="col-md-12">
+								<div class="col-md-6" style="text-align:left">
 									<div class="info-title mt-4">
-										<h4><fmt:message key="EducationExperience" /></h4>
+										<h4><fmt:message key="EducationExperience" />①</h4>
+									</div>
+								</div>
+								<div class="col-md-6" style="text-align:right">
+									<div class="info-title mt-4">
+										<a class="btn btn-primary" href="javascript:;" id="addEducationExperienceBtn"><fmt:message key="AddEducationExperience" /></a>
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -167,13 +173,13 @@
 											<!-- 毕业学校 -->
 											<p>
 												<input class="form-control" type="text" name="graduate_school" id="graduate_school"
-												value="${education.getSchool() }" onchange="checkGraduationSchool()"
+												value="" onchange="checkGraduationSchool($('#graduate_school'))"
 												placeholder="<fmt:message key="GraduationSchoolTip" />" title="<fmt:message key="GraduationSchool" />"/>
 											</p>
 											<!-- 专业 -->
 											<p>
 												<input class="form-control" type="text" name="profession" id="profession"
-												value="${education.getProfession() }" onchange="checkProfession()"
+												value="" onchange="checkProfession($('#profession'))"
 												placeholder="<fmt:message key="ProfessionTip" />" title="<fmt:message key="Profession" />"/>
 											</p>
 										</div>
@@ -186,14 +192,116 @@
 											<input type="hidden" id="graduation_date" name="graduation_date" value="" />
 											<div class="input-group date graduation_date1" data-date="" data-date-format="yyyy-mm-dd" 
 												data-link-field="graduation_date" data-link-format="yyyy-mm-dd">
-												<input class="form-control" type="text" onchange="updateGraduationDate(this.value)" id="graduation_date1"
-												placeholder="<fmt:message key="GraduationDateTip" />" title="<fmt:message key="GraduationDate" />"/>
+												<input class="form-control" type="text" onchange="updateGraduationDate(this.value,$('#graduation_date'))" id="graduation_date1"
+												placeholder="<fmt:message key="GraduationDateTip" />" title="<fmt:message key="GraduationDate" />" autocomplete="off"/>
 												<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 											</div>
 											<!-- 教育程度 -->
 											<p>
 												<input class="form-control" type="text" name="education_degree" id="education_degree"
-												value="${education.getDegree() }" onchange="checkEducationDegree()"
+												value="" onchange="checkEducationDegree($('#education_degree'))"
+												placeholder="<fmt:message key="EducationDegreeTip" />" title="<fmt:message key="EducationDegree" />"/>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 教育经历信息区域2 -->
+							<div class="row" id="EducationExperience2" style="display:none">
+								<div class="col-md-6" style="text-align:left">
+									<div class="info-title mt-4">
+										<h4><fmt:message key="EducationExperience" />②</h4>
+									</div>
+								</div>
+								<div class="col-md-6" style="text-align:right">
+									<div class="info-title mt-4">
+										<a class="btn btn-danger" href="javascript:;" id="removeEducationExperience2Btn"><fmt:message key="RemoveEducationExperience" />②</a>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-info">
+										<div class="info-field">
+											<!-- 毕业学校 -->
+											<p>
+												<input class="form-control" type="text" name="graduate_school2" id="graduate_school2"
+												value="" onchange="checkGraduationSchool($('#graduate_school2'))"
+												placeholder="<fmt:message key="GraduationSchoolTip" />" title="<fmt:message key="GraduationSchool" />"/>
+											</p>
+											<!-- 专业 -->
+											<p>
+												<input class="form-control" type="text" name="profession2" id="profession2"
+												value="" onchange="checkProfession($('#profession2'))"
+												placeholder="<fmt:message key="ProfessionTip" />" title="<fmt:message key="Profession" />"/>
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="fom-info">
+										<div class="form-filed">
+											<!-- 毕业时间 -->
+											<input type="hidden" id="graduation_date2" name="graduation_date2" value="" />
+											<div class="input-group date graduation_date12" data-date="" data-date-format="yyyy-mm-dd" 
+												data-link-field="graduation_date2" data-link-format="yyyy-mm-dd">
+												<input class="form-control" type="text" onchange="updateGraduationDate(this.value,$('#graduation_date2'))" id="graduation_date12"
+												placeholder="<fmt:message key="GraduationDateTip" />" title="<fmt:message key="GraduationDate" />" autocomplete="off"/>
+												<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+											</div>
+											<!-- 教育程度 -->
+											<p>
+												<input class="form-control" type="text" name="education_degree2" id="education_degree2"
+												value="" onchange="checkEducationDegree($('#education_degree2'))"
+												placeholder="<fmt:message key="EducationDegreeTip" />" title="<fmt:message key="EducationDegree" />"/>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 教育经历信息区域3 -->
+							<div class="row" id="EducationExperience3" style="display:none">
+								<div class="col-md-6" style="text-align:left">
+									<div class="info-title mt-4">
+										<h4><fmt:message key="EducationExperience" />③</h4>
+									</div>
+								</div>
+								<div class="col-md-6" style="text-align:right">
+									<div class="info-title mt-4">
+										<a class="btn btn-danger" href="javascript:;" id="removeEducationExperience3Btn"><fmt:message key="RemoveEducationExperience" />③</a>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-info">
+										<div class="info-field">
+											<!-- 毕业学校 -->
+											<p>
+												<input class="form-control" type="text" name="graduate_school3" id="graduate_school3"
+												value="" onchange="checkGraduationSchool($('#graduate_school3'))"
+												placeholder="<fmt:message key="GraduationSchoolTip" />" title="<fmt:message key="GraduationSchool" />"/>
+											</p>
+											<!-- 专业 -->
+											<p>
+												<input class="form-control" type="text" name="profession3" id="profession3"
+												value="" onchange="checkProfession($('#profession3'))"
+												placeholder="<fmt:message key="ProfessionTip" />" title="<fmt:message key="Profession" />"/>
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="fom-info">
+										<div class="form-filed">
+											<!-- 毕业时间 -->
+											<input type="hidden" id="graduation_date3" name="graduation_date3" value="" />
+											<div class="input-group date graduation_date13" data-date="" data-date-format="yyyy-mm-dd" 
+												data-link-field="graduation_date3" data-link-format="yyyy-mm-dd">
+												<input class="form-control" type="text" onchange="updateGraduationDate(this.value,$('#graduation_date3'))" id="graduation_date13"
+												placeholder="<fmt:message key="GraduationDateTip" />" title="<fmt:message key="GraduationDate" />" autocomplete="off"/>
+												<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+											</div>
+											<!-- 教育程度 -->
+											<p>
+												<input class="form-control" type="text" name="education_degree3" id="education_degree3"
+												value="" onchange="checkEducationDegree($('#education_degree3'))"
 												placeholder="<fmt:message key="EducationDegreeTip" />" title="<fmt:message key="EducationDegree" />"/>
 											</p>
 										</div>
@@ -201,11 +309,17 @@
 								</div>
 							</div>
 							
-							<!-- 项目经验信息区域 -->
+							
+							<!-- 项目经验信息区域1 -->
 							<div class="row">
-								<div class="col-md-12">
+								<div class="col-md-6" style="text-align:left">
 									<div class="info-title mt-4">
-										<h4><fmt:message key="ProjectExperience" /></h4>
+										<h4><fmt:message key="ProjectExperience" />①</h4>
+									</div>
+								</div>
+								<div class="col-md-6" style="text-align:right">
+									<div class="info-title mt-4">
+										<a class="btn btn-primary" href="javascript:;" id="addProjectExperienceBtn"><fmt:message key="AddProjectExperience" /></a>
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -214,13 +328,13 @@
 											<!-- 项目名称 -->
 											<p>
 												<input class="form-control" type="text" name="project_name" id="project_name"
-												value="${projectExp.getName() }" onchange="checkProjectName()"
+												value="" onchange="checkProjectName($('#project_name'))"
 												placeholder="<fmt:message key="ProjectNameTip" />" title="<fmt:message key="ProjectName" />"/>
 											</p>
 											<!-- 担任职务 -->
 											<p>
 												<input class="form-control" type="text" name="project_job" id="project_job"
-												value="${projectExp.getProjectJob() }" onchange="checkProjectJob()"
+												value="" onchange="checkProjectJob($('#project_job'))"
 												placeholder="<fmt:message key="ProjectJobTip" />" title="<fmt:message key="ProjectJob" />"/>
 											</p>
 										</div>
@@ -232,8 +346,8 @@
 									<input type="hidden" id="project_period_start" name="project_period_start" value="" />
 									<div class="input-group date project_period_start_data" data-date="" data-date-format="yyyy-mm-dd" 
 										data-link-field="project_period_start" data-link-format="yyyy-mm-dd">
-										<input class="form-control" type="text" onchange="updateProjectPeriodStart(this.value)" id="project_period_start_data"
-										placeholder="<fmt:message key="ProjectPeriodStartTip" />" title="<fmt:message key="ProjectPeriodStart" />"/>
+										<input class="form-control" type="text" onchange="updateProjectPeriodStart(this.value,$('#project_period_start'))" id="project_period_start_data"
+										placeholder="<fmt:message key="ProjectPeriodStartTip" />" title="<fmt:message key="ProjectPeriodStart" />" autocomplete="off"/>
 										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 									</div>
 								</div>
@@ -242,23 +356,143 @@
 									<input type="hidden" id="project_period_end" name="project_period_end" value="" />
 									<div class="input-group date project_period_end_data" data-date="" data-date-format="yyyy-mm-dd" 
 										data-link-field="project_period_end" data-link-format="yyyy-mm-dd">
-										<input class="form-control" type="text" onchange="updateProjectPeriodEnd(this.value)" id="project_period_end_data"
-										placeholder="<fmt:message key="ProjectPeriodEndTip" />" title="<fmt:message key="ProjectPeriodEnd" />"/>
+										<input class="form-control" type="text" onchange="updateProjectPeriodEnd(this.value,$('#project_period_end'))" id="project_period_end_data"
+										placeholder="<fmt:message key="ProjectPeriodEndTip" />" title="<fmt:message key="ProjectPeriodEnd" />" autocomplete="off"/>
 										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 									</div>
 								</div>
 								<!-- 项目简述 -->
 								<div class="col-md-12">
-									<textarea class="form-control" name="project_desc" id="project_desc" rows="5" onchange="checkProjectDescription()"
-									placeholder="<fmt:message key="ProjectDescriptionTip" />" title="<fmt:message key="ProjectDescription" />">${projectExp.getProjectDesc() }</textarea>
+									<textarea class="form-control" name="project_desc" id="project_desc" rows="5" onchange="checkProjectDescription($('#project_desc'))"
+									placeholder="<fmt:message key="ProjectDescriptionTip" />" title="<fmt:message key="ProjectDescription" />"></textarea>
+								</div>
+							</div>
+							<!-- 项目经验信息区域2 -->
+							<div class="row" id="ProjectExperience2" style="display:none">
+								<div class="col-md-6" style="text-align:left">
+									<div class="info-title mt-4">
+										<h4><fmt:message key="ProjectExperience" />②</h4>
+									</div>
+								</div>
+								<div class="col-md-6" style="text-align:right">
+									<div class="info-title mt-4">
+										<a class="btn btn-danger" href="javascript:;" id="removeProjectExperience2Btn"><fmt:message key="RemoveProjectExperience" />②</a>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-info">
+										<div class="info-field">
+											<!-- 项目名称 -->
+											<p>
+												<input class="form-control" type="text" name="project_name2" id="project_name2"
+												value="" onchange="checkProjectName($('#project_name2'))"
+												placeholder="<fmt:message key="ProjectNameTip" />" title="<fmt:message key="ProjectName" />"/>
+											</p>
+											<!-- 担任职务 -->
+											<p>
+												<input class="form-control" type="text" name="project_job2" id="project_job2"
+												value="" onchange="checkProjectJob($('#project_job2'))"
+												placeholder="<fmt:message key="ProjectJobTip" />" title="<fmt:message key="ProjectJob" />"/>
+											</p>
+										</div>
+									</div>
+								</div>
+								<!-- 项目参与时间段 -->		
+								<div class="col-md-6">
+									<!-- 项目开始时间 -->
+									<input type="hidden" id="project_period_start2" name="project_period_start2" value="" />
+									<div class="input-group date project_period_start_data2" data-date="" data-date-format="yyyy-mm-dd" 
+										data-link-field="project_period_start2" data-link-format="yyyy-mm-dd">
+										<input class="form-control" type="text" onchange="updateProjectPeriodStart(this.value,$('#project_period_start2'))" id="project_period_start_data2"
+										placeholder="<fmt:message key="ProjectPeriodStartTip" />" title="<fmt:message key="ProjectPeriodStart" />" autocomplete="off"/>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<!-- 项目结束时间 -->
+									<input type="hidden" id="project_period_end2" name="project_period_end2" value="" />
+									<div class="input-group date project_period_end_data2" data-date="" data-date-format="yyyy-mm-dd" 
+										data-link-field="project_period_end2" data-link-format="yyyy-mm-dd">
+										<input class="form-control" type="text" onchange="updateProjectPeriodEnd(this.value,$('#project_period_end2'))" id="project_period_end_data2"
+										placeholder="<fmt:message key="ProjectPeriodEndTip" />" title="<fmt:message key="ProjectPeriodEnd" />" autocomplete="off"/>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+									</div>
+								</div>
+								<!-- 项目简述 -->
+								<div class="col-md-12">
+									<textarea class="form-control" name="project_desc2" id="project_desc2" rows="5" onchange="checkProjectDescription($('#project_desc2'))"
+									placeholder="<fmt:message key="ProjectDescriptionTip" />" title="<fmt:message key="ProjectDescription" />"></textarea>
+								</div>
+							</div>
+							<!-- 项目经验信息区域3 -->
+							<div class="row" id="ProjectExperience3" style="display:none">
+								<div class="col-md-6" style="text-align:left">
+									<div class="info-title mt-4">
+										<h4><fmt:message key="ProjectExperience" />③</h4>
+									</div>
+								</div>
+								<div class="col-md-6" style="text-align:right">
+									<div class="info-title mt-4">
+										<a class="btn btn-danger" href="javascript:;" id="removeProjectExperience3Btn"><fmt:message key="RemoveProjectExperience" />③</a>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-info">
+										<div class="info-field">
+											<!-- 项目名称 -->
+											<p>
+												<input class="form-control" type="text" name="project_name3" id="project_name3"
+												value="" onchange="checkProjectName($('#project_name3'))"
+												placeholder="<fmt:message key="ProjectNameTip" />" title="<fmt:message key="ProjectName" />"/>
+											</p>
+											<!-- 担任职务 -->
+											<p>
+												<input class="form-control" type="text" name="project_job3" id="project_job3"
+												value="" onchange="checkProjectJob($('#project_job3'))"
+												placeholder="<fmt:message key="ProjectJobTip" />" title="<fmt:message key="ProjectJob" />"/>
+											</p>
+										</div>
+									</div>
+								</div>
+								<!-- 项目参与时间段 -->		
+								<div class="col-md-6">
+									<!-- 项目开始时间 -->
+									<input type="hidden" id="project_period_start3" name="project_period_start3" value="" />
+									<div class="input-group date project_period_start_data3" data-date="" data-date-format="yyyy-mm-dd" 
+										data-link-field="project_period_start3" data-link-format="yyyy-mm-dd">
+										<input class="form-control" type="text" onchange="updateProjectPeriodStart(this.value,$('#project_period_start3'))" id="project_period_start_data3"
+										placeholder="<fmt:message key="ProjectPeriodStartTip" />" title="<fmt:message key="ProjectPeriodStart" />" autocomplete="off"/>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<!-- 项目结束时间 -->
+									<input type="hidden" id="project_period_end3" name="project_period_end3" value="" />
+									<div class="input-group date project_period_end_data3" data-date="" data-date-format="yyyy-mm-dd" 
+										data-link-field="project_period_end3" data-link-format="yyyy-mm-dd">
+										<input class="form-control" type="text" onchange="updateProjectPeriodEnd(this.value,$('#project_period_end3'))" id="project_period_end_data3"
+										placeholder="<fmt:message key="ProjectPeriodEndTip" />" title="<fmt:message key="ProjectPeriodEnd" />" autocomplete="off"/>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+									</div>
+								</div>
+								<!-- 项目简述 -->
+								<div class="col-md-12">
+									<textarea class="form-control" name="project_desc3" id="project_desc3" rows="5" onchange="checkProjectDescription($('#project_desc3'))"
+									placeholder="<fmt:message key="ProjectDescriptionTip" />" title="<fmt:message key="ProjectDescription" />"></textarea>
 								</div>
 							</div>
 							
-							<!-- 工作经验信息区域 -->
+							
+							<!-- 工作经验信息区域1 -->
 							<div class="row">
-								<div class="col-md-12">
+								<div class="col-md-6" style="text-align:left">
 									<div class="info-title mt-4">
-										<h4><fmt:message key="WorkExperience" /></h4>
+										<h4><fmt:message key="WorkExperience" />①</h4>
+									</div>
+								</div>
+								<div class="col-md-6" style="text-align:right">
+									<div class="info-title mt-4">
+										<a class="btn btn-primary" href="javascript:;" id="addWorkExperienceBtn"><fmt:message key="AddWorkExperience" /></a>
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -267,13 +501,13 @@
 											<!-- 工作职称 -->
 											<p>
 												<input class="form-control" type="text" name="work_title" id="work_title"
-												value="${workExp.getWorkTitle() }" onchange="checkWorkTitle()"
+												value="${workExp.getWorkTitle() }" onchange="checkWorkTitle($('#work_title'))"
 												placeholder="<fmt:message key="WorkTitleTip" />" title="<fmt:message key="WorkTitle" />"/>
 											</p>
 											<!-- 工作部门 -->
 											<p>
 												<input class="form-control" type="text" name="department" id="department"
-												value="${workExp.getDepartment() }" onchange="checkWorkDepartment()"
+												value="${workExp.getDepartment() }" onchange="checkWorkDepartment($('#department'))"
 												placeholder="<fmt:message key="WorkDepartmentTip" />" title="<fmt:message key="WorkDepartment" />"/>
 											</p>
 										</div>
@@ -285,8 +519,8 @@
 									<input type="hidden" id="work_period_start" name="work_period_start" value="" />
 									<div class="input-group date work_period_start_data" data-date="" data-date-format="yyyy-mm-dd" 
 										data-link-field="work_period_start" data-link-format="yyyy-mm-dd">
-										<input class="form-control" type="text" onchange="updateWorkPeriodStart(this.value)" id="work_period_start_data"
-										placeholder="<fmt:message key="WorkPeriodStartTip" />" title="<fmt:message key="WorkPeriodStart" />"/>
+										<input class="form-control" type="text" onchange="updateWorkPeriodStart(this.value,$('#work_period_start'))" id="work_period_start_data"
+										placeholder="<fmt:message key="WorkPeriodStartTip" />" title="<fmt:message key="WorkPeriodStart" />" autocomplete="off"/>
 										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 									</div>
 								</div>
@@ -295,25 +529,130 @@
 									<input type="hidden" id="work_period_end" name="work_period_end" value="" />
 									<div class="input-group date work_period_end_data" data-date="" data-date-format="yyyy-mm-dd" 
 										data-link-field="work_period_end" data-link-format="yyyy-mm-dd">
-										<input class="form-control" type="text" onchange="updateWorkPeriodEnd(this.value)" id="work_period_end_data"
-										placeholder="<fmt:message key="WorkPeriodEndTip" />" title="<fmt:message key="WorkPeriodEnd" />"/>
+										<input class="form-control" type="text" onchange="updateWorkPeriodEnd(this.value,$('#work_period_end'))" id="work_period_end_data"
+										placeholder="<fmt:message key="WorkPeriodEndTip" />" title="<fmt:message key="WorkPeriodEnd" />" autocomplete="off"/>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+									</div>
+								</div>
+							</div>
+							<!-- 工作经验信息区域2 -->
+							<div class="row" id="WorkExperience2" style="display:none">
+								<div class="col-md-6" style="text-align:left">
+									<div class="info-title mt-4">
+										<h4><fmt:message key="WorkExperience" />②</h4>
+									</div>
+								</div>
+								<div class="col-md-6" style="text-align:right">
+									<div class="info-title mt-4">
+										<a class="btn btn-danger" href="javascript:;" id="removeWorkExperience2Btn"><fmt:message key="RemoveWorkExperience" />②</a>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-info">
+										<div class="info-field">
+											<!-- 工作职称 -->
+											<p>
+												<input class="form-control" type="text" name="work_title2" id="work_title2"
+												value="${workExp.getWorkTitle() }" onchange="checkWorkTitle($('#work_title2'))"
+												placeholder="<fmt:message key="WorkTitleTip" />" title="<fmt:message key="WorkTitle" />"/>
+											</p>
+											<!-- 工作部门 -->
+											<p>
+												<input class="form-control" type="text" name="department2" id="department2"
+												value="${workExp.getDepartment() }" onchange="checkWorkDepartment($('#department2'))"
+												placeholder="<fmt:message key="WorkDepartmentTip" />" title="<fmt:message key="WorkDepartment" />"/>
+											</p>
+										</div>
+									</div>
+								</div>
+								<!-- 工作参与时间段 -->		
+								<div class="col-md-6">
+									<!-- 工作开始时间 -->
+									<input type="hidden" id="work_period_start2" name="work_period_start2" value="" />
+									<div class="input-group date work_period_start_data2" data-date="" data-date-format="yyyy-mm-dd" 
+										data-link-field="work_period_start2" data-link-format="yyyy-mm-dd">
+										<input class="form-control" type="text" onchange="updateWorkPeriodStart(this.value,$('#work_period_start2'))" id="work_period_start_data2"
+										placeholder="<fmt:message key="WorkPeriodStartTip" />" title="<fmt:message key="WorkPeriodStart" />" autocomplete="off"/>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<!-- 工作结束时间 -->
+									<input type="hidden" id="work_period_end2" name="work_period_end2" value="" />
+									<div class="input-group date work_period_end_data2" data-date="" data-date-format="yyyy-mm-dd" 
+										data-link-field="work_period_end2" data-link-format="yyyy-mm-dd">
+										<input class="form-control" type="text" onchange="updateWorkPeriodEnd(this.value,$('#work_period_end2'))" id="work_period_end_data2"
+										placeholder="<fmt:message key="WorkPeriodEndTip" />" title="<fmt:message key="WorkPeriodEnd" />" autocomplete="off"/>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+									</div>
+								</div>
+							</div>
+							<!-- 工作经验信息区域3 -->
+							<div class="row" id="WorkExperience3" style="display:none">
+								<div class="col-md-6" style="text-align:left">
+									<div class="info-title mt-4">
+										<h4><fmt:message key="WorkExperience" />③</h4>
+									</div>
+								</div>
+								<div class="col-md-6" style="text-align:right">
+									<div class="info-title mt-4">
+										<a class="btn btn-danger" href="javascript:;" id="removeWorkExperience3Btn"><fmt:message key="RemoveWorkExperience" />③</a>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-info">
+										<div class="info-field">
+											<!-- 工作职称 -->
+											<p>
+												<input class="form-control" type="text" name="work_title3" id="work_title3"
+												value="${workExp.getWorkTitle() }" onchange="checkWorkTitle($('#work_title3'))"
+												placeholder="<fmt:message key="WorkTitleTip" />" title="<fmt:message key="WorkTitle" />"/>
+											</p>
+											<!-- 工作部门 -->
+											<p>
+												<input class="form-control" type="text" name="department3" id="department3"
+												value="${workExp.getDepartment() }" onchange="checkWorkDepartment($('#department3'))"
+												placeholder="<fmt:message key="WorkDepartmentTip" />" title="<fmt:message key="WorkDepartment" />"/>
+											</p>
+										</div>
+									</div>
+								</div>
+								<!-- 工作参与时间段 -->		
+								<div class="col-md-6">
+									<!-- 工作开始时间 -->
+									<input type="hidden" id="work_period_start3" name="work_period_start3" value="" />
+									<div class="input-group date work_period_start_data3" data-date="" data-date-format="yyyy-mm-dd" 
+										data-link-field="work_period_start3" data-link-format="yyyy-mm-dd">
+										<input class="form-control" type="text" onchange="updateWorkPeriodStart(this.value,$('#work_period_start3'))" id="work_period_start_data3"
+										placeholder="<fmt:message key="WorkPeriodStartTip" />" title="<fmt:message key="WorkPeriodStart" />" autocomplete="off"/>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<!-- 工作结束时间 -->
+									<input type="hidden" id="work_period_end3" name="work_period_end3" value="" />
+									<div class="input-group date work_period_end_data3" data-date="" data-date-format="yyyy-mm-dd" 
+										data-link-field="work_period_end3" data-link-format="yyyy-mm-dd">
+										<input class="form-control" type="text" onchange="updateWorkPeriodEnd(this.value,$('#work_period_end3'))" id="work_period_end_data3"
+										placeholder="<fmt:message key="WorkPeriodEndTip" />" title="<fmt:message key="WorkPeriodEnd" />" autocomplete="off"/>
 										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 									</div>
 								</div>
 							</div>
 							
+							
 							<!-- 其他信息区域 -->
 							<div class="row">
 								<div class="col-md-12">
 									<div class="info-title mt-4">
-										<h4>Others Info</h4>
+										<h4><fmt:message key="CompleteResumeProtocol" /></h4>
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" id="gridCheck"> 
-											<label class="form-check-label" for="gridCheck"> Yes, I agreed all the terms of conditions to apply the job </label>
+											<input class="form-check-input" type="checkbox" id="completeResumeProtocol"> 
+											<label class="form-check-label" for="completeResumeProtocol"><fmt:message key="CompleteResumeProtocolStr" /></label>
 										</div>    
 									</div>
 									<button type="button" id="submitResumeBtn" class="btn btn-primary job-post-btn btn-lg btn-block mt-2"><fmt:message key="SubmitResume" /></button>
@@ -345,14 +684,75 @@
 	<script>
 		var basicInfo_id = '${basicInfo.getID() }'
 		var oldBirthday = '${COMUtil.dataToStr(basicInfo.getBirthday()) }';
-		var oldGraduationDate = '${COMUtil.dataToStr(education.getGraduationDate()) }';
+		//获取教育经历数据
+		$('#graduate_school').val('${education.getSchool()}'.split("_")[0]);
+		$('#graduate_school2').val('${education.getSchool()}'.split("_")[1]);
+		$('#graduate_school3').val('${education.getSchool()}'.split("_")[2]);
+		$('#profession').val('${education.getProfession()}'.split("_")[0]);
+		$('#profession2').val('${education.getProfession()}'.split("_")[1]);
+		$('#profession3').val('${education.getProfession()}'.split("_")[2]);
+		$('#education_degree').val('${education.getDegree()}'.split("_")[0]);
+		$('#education_degree2').val('${education.getDegree()}'.split("_")[1]);
+		$('#education_degree3').val('${education.getDegree()}'.split("_")[2]);
+		var oldGraduationDate = '${education.getGraduationDate()}'.split("_")[0];
+		var oldGraduationDate2 = '${education.getGraduationDate()}'.split("_")[1];
+		var oldGraduationDate3 = '${education.getGraduationDate()}'.split("_")[2];
+		//获取项目经验数据
+		$('#project_name').val('${projectExp.getName()}'.split("_")[0]);
+		$('#project_name2').val('${projectExp.getName()}'.split("_")[1]);
+		$('#project_name3').val('${projectExp.getName()}'.split("_")[2]);
+		$('#project_job').val('${projectExp.getProjectJob()}'.split("_")[0]);
+		$('#project_job2').val('${projectExp.getProjectJob()}'.split("_")[1]);
+		$('#project_job3').val('${projectExp.getProjectJob()}'.split("_")[2]);
+		$('#project_desc').val('${projectExp.getProjectDesc()}'.split("_")[0]);
+		$('#project_desc2').val('${projectExp.getProjectDesc()}'.split("_")[1]);
+		$('#project_desc3').val('${projectExp.getProjectDesc()}'.split("_")[2]);
 		var oldProjectPeriodStart = '${projectExp.getPeriod()}'.split("_")[0];
 		var oldProjectPeriodEnd = '${projectExp.getPeriod()}'.split("_")[1];
+		var oldProjectPeriodStart2 = '${projectExp.getPeriod()}'.split("_")[2];
+		var oldProjectPeriodEnd2 = '${projectExp.getPeriod()}'.split("_")[3];
+		var oldProjectPeriodStart3 = '${projectExp.getPeriod()}'.split("_")[4];
+		var oldProjectPeriodEnd3 = '${projectExp.getPeriod()}'.split("_")[5];
+		//获取工作经验数据
+		$('#work_title').val('${workExp.getWorkTitle()}'.split("_")[0]);
+		$('#work_title2').val('${workExp.getWorkTitle()}'.split("_")[1]);
+		$('#work_title3').val('${workExp.getWorkTitle()}'.split("_")[2]);
+		$('#department').val('${workExp.getDepartment()}'.split("_")[0]);
+		$('#department2').val('${workExp.getDepartment()}'.split("_")[1]);
+		$('#department3').val('${workExp.getDepartment()}'.split("_")[2]);
 		var oldWorkPeriodStart = '${workExp.getPeriod()}'.split("_")[0];
 		var oldWorkPeriodEnd = '${workExp.getPeriod()}'.split("_")[1];
+		var oldWorkPeriodStart2 = '${workExp.getPeriod()}'.split("_")[2];
+		var oldWorkPeriodEnd2 = '${workExp.getPeriod()}'.split("_")[3];
+		var oldWorkPeriodStart3 = '${workExp.getPeriod()}'.split("_")[4];
+		var oldWorkPeriodEnd3 = '${workExp.getPeriod()}'.split("_")[5];
 	</script>
 	<script src="/SWRW/public/js/applicant/completeResume.js"></script>
 	<!-- 修改简历照片模态框 -->
 	<%@include file="/WEB-INF/view/applicant/resume/changeResumePhotoModal.jsp" %>
+	
+<script>
+//显示教育经历
+if($('#graduate_school2').val().length!=0){
+	$("#EducationExperience2").show();
+}
+if($('#graduate_school3').val().length!=0){
+	$("#EducationExperience3").show();
+}
+//显示项目经验
+if($('#project_name2').val().length!=0){
+	$("#ProjectExperience2").show();
+}
+if($('#project_name3').val().length!=0){
+	$("#ProjectExperience3").show();
+}
+//显示工作经验
+if($('#work_title2').val().length!=0){
+	$("#WorkExperience2").show();
+}
+if($('#work_title3').val().length!=0){
+	$("#WorkExperience3").show();
+}
+</script>
 </body>
 </html>

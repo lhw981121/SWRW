@@ -1,10 +1,20 @@
 //求职者简历基本信息验证JS
 
+//验证基本信息表单
+function checkBasicInformation(){
+	if(checkRealName()&&checkGender()&&updateBirthday($('#birthday_data').val())&&checkJobExperience()&&checkEmail()&&checkPhone()&&
+		checkCurrentLocation()&&checkResidentLocation()&&checkJobIntension()){
+		return true;
+	}else{
+		return false;
+	}
+}
+
 //真实姓名验证
 function checkRealName(){
     var value = $('#realName').val();
     //真实姓名的规则：只能为汉字、字母或数字，长度为2-20
-	var reg = /^([\u0391-\uFFE5]|[0-9a-zA-Z])+$/;
+	var reg = /^([\u0391-\uFFE5]|[0-9a-zA-Z\s])+$/;
     if(value.length!=0&&!reg.test(value)){
         //不符合规则
 		ErrorTipBottomLeft(language=='zh_CN'?"真实姓名输入不符合规范！":"Wrong realname format!");

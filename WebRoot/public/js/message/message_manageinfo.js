@@ -255,7 +255,6 @@ function markAllMessageRead(receiver_id){
 }
 
 
-
 /*<!-- 滑动到指定消息 -->*/
 var x = $("#"+GetUrlParam('id')).offset().left;
 var y = $("#"+GetUrlParam('id')).offset().top;

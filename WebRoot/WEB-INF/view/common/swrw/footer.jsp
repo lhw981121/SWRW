@@ -27,7 +27,7 @@
                         <div class="widget-link">
                             <ul>
                                 <li><a href="javascript:;"><i class="fa fa-angle-right" aria-hidden="true"></i><fmt:message key="BrowseJobs"/></a></li>
-                                <li><a href="javascript:;"><i class="fa fa-angle-right" aria-hidden="true"></i><fmt:message key="SubmitResume"/></a></li>
+                                <li><a href="javascript:;"><i class="fa fa-angle-right" aria-hidden="true"></i><fmt:message key="CompleteResume"/></a></li>
                                 <li><a href="javascript:;"><i class="fa fa-angle-right" aria-hidden="true"></i><fmt:message key="MyBookmarks"/></a></li>
                                 <li><a href="javascript:;"><i class="fa fa-angle-right" aria-hidden="true"></i><fmt:message key="JobAlerts"/></a></li>
                             </ul>

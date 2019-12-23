@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.qst.itoffer.bean.User,com.qst.itoffer.dao.UserDao" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,com.swzj.swrw.bean.User,com.swzj.swrw.dao.UserDao" pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>

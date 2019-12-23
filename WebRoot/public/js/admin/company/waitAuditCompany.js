@@ -3,26 +3,26 @@
 /*<!-- 待审框、审核意见框、企业详情框切换 -->*/
 function passCompanyPanel(id){
 	$("#passCompany_id").val(id);
-	$("#waitAuditPanel").hide();
+	$("#waitAuditCompanyPanel").hide();
 	$("#viewCompanyPanel").hide();
 	$("#passOpinionPanel").show();
 }
 $("#passBackBtn").click(function(){
 	$("#passOpinionPanel").hide();
-	$("#waitAuditPanel").show();
+	$("#waitAuditCompanyPanel").show();
 });
 function vetoCompanyPanel(id){
 	$("#vetoCompany_id").val(id);
-	$("#waitAuditPanel").hide();
+	$("#waitAuditCompanyPanel").hide();
 	$("#viewCompanyPanel").hide();
 	$("#vetoOpinionPanel").show();
 }
 $("#vetoBackBtn").click(function(){
 	$("#vetoOpinionPanel").hide();
-	$("#waitAuditPanel").show();
+	$("#waitAuditCompanyPanel").show();
 });
 function viewCompany(id){
-	$("#waitAuditPanel").hide();
+	$("#waitAuditCompanyPanel").hide();
 	$("#viewCompanyPanel").show();
 	$.ajax({
 		type:"post",
@@ -56,7 +56,7 @@ function viewCompany(id){
 }
 $("#viewBackBtn").click(function(){
 	$("#viewCompanyPanel").hide();
-	$("#waitAuditPanel").show();
+	$("#waitAuditCompanyPanel").show();
 });
 
 //通过审核
@@ -92,13 +92,13 @@ function passCompany(){
 					function(){
 						$("#viewCompanyPanel").hide();
 						$("#passOpinionPanel").hide();
-						$("#waitAuditPanel").show();
+						$("#waitAuditCompanyPanel").show();
 						SelectPage(page);
 					});
 					setTimeout(function () {
 						$("#viewCompanyPanel").hide();
 						$("#passOpinionPanel").hide();
-						$("#waitAuditPanel").show();
+						$("#waitAuditCompanyPanel").show();
 						SelectPage(page);
 					}, 2000);
 				}else{//操作失败
@@ -148,13 +148,13 @@ function vetoCompany(){
 					function(){
 						$("#viewCompanyPanel").hide();
 						$("#vetoOpinionPanel").hide();
-						$("#waitAuditPanel").show();
+						$("#waitAuditCompanyPanel").show();
 						SelectPage(page);
 					});
 					setTimeout(function () {
 						$("#viewCompanyPanel").hide();
 						$("#vetoOpinionPanel").hide();
-						$("#waitAuditPanel").show();
+						$("#waitAuditCompanyPanel").show();
 						SelectPage(page);
 					}, 2000);
 				}else{//操作失败
@@ -177,6 +177,7 @@ function vetoCompany(){
 /*选择页码获取分页数据*/
 var page = 1;
 function SelectPage(pageNo){
+	$('#waitAuditCompanyData').append('<td colspan="7"><h3 style="text-align:center">'+(language=='zh_CN'?'数据加载中。。。':'Data loading...')+'</h3></td>');
 	page = pageNo;
 	$.ajax({
 		type:"post",
@@ -198,19 +199,21 @@ function SelectPage(pageNo){
 			/* 渲染数据 */
 			var company = r.company;
 			$('#waitAuditCompanyData').html('');
+			if(company.length==0){$('#waitAuditCompanyData').html('<td colspan="7"><h3 style="text-align:center">'+(language=='zh_CN'?'没有数据':'No Data')+'</h3></td>');}
 			$.each(company, function (index, com) {
 				$('#waitAuditCompanyData').append(
 				'<tr>'
-				+'<td>'
+				+'<td style="vertical-align:middle;">'
 				+'<a href="javascript:;" onclick="passCompanyPanel('+com.company_id+');"><span class="label label-success"><i class="fa fa-check-circle"></i> 通过</span></a> '
 				+'<a href="javascript:;" onclick="vetoCompanyPanel('+com.company_id+');"><span class="label label-danger"><i class="fa fa-times-circle"></i> 否决</span></a> '
 				+'<a href="javascript:;" onclick="viewCompany('+com.company_id+');"><span class="label label-primary"><i class="fa fa-sticky-note-o"></i> 详情</span></a>'
 				+'</td>'
-				+'<td>'+IfNull(com.company_name)+'</td>'
-				+'<td>'+IfNull(com.company_legal)+'</td>'
-				+'<td>'+IfNull(com.company_type)+'</td>'
-				+'<td>'+IfNull(com.company_size)+'</td>'
-				+'<td>'+DateFormat(IfNull(com.updated_at),"yyyy-MM-dd HH:mm:ss")+'</td>'
+				+'<td style="vertical-align:middle;">'+IfNull(com.company_name)+'</td>'
+				+'<td style="vertical-align:middle;">'+IfNull(com.company_legal)+'</td>'
+				+'<td style="width:15%">'+IfNull(com.company_area)+'</td>'
+				+'<td style="vertical-align:middle;">'+IfNull(com.company_type)+'</td>'
+				+'<td style="vertical-align:middle;">'+IfNull(com.company_size)+'</td>'
+				+'<td style="vertical-align:middle;">'+DateFormat(IfNull(com.updated_at),"yyyy-MM-dd HH:mm:ss")+'</td>'
 				+'</tr>');
 			});
 			/* 渲染页码 */

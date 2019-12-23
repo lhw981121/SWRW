@@ -13,7 +13,6 @@
 <!-- All CSS -->
 <link rel="stylesheet" href="/SWRW/public/assets/css/bootstrap.css">
 <link rel="stylesheet" href="/SWRW/public/assets/css/aos.min.css">
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 <link rel="stylesheet" href="/SWRW/public/assets/css/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/SWRW/public/assets/css/magnific.min.css">
 <link rel="stylesheet" href="/SWRW/public/assets/css/owl.carousel.min.css">

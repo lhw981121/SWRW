@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.qst.itoffer.util.COMUtil" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,com.swzj.swrw.util.COMUtil" pageEncoding="UTF-8"%>
 <!-- 页面初始化 -->
 <%@include file="/WEB-INF/view/common/swrw/init.jsp"%>
 
@@ -124,15 +124,16 @@ table td p:nth-child(1) {margin: 10px 0;}
 									<td style="vertical-align:middle;">
 										<c:choose>
 										<c:when test="${company.getState() <= 0}">
-											<a href="javascript:void(0);" class="btn btn-primary" 
+											<a href="javascript:void(0);" class="btn btn-primary" id="CompanyCertificationBtn"
 											onclick="if(${company.getState()!=-1}){$('#companyCertificationModal').modal('show')}
-														else{swal({title: language=='zh_CN'?'认证审核中':'Certification audit',
+														else{swal({title: language=='zh_CN'?'认证审核中':'Certification Audit',
 															text: language=='zh_CN'?'你的企业认证信息正处于审核状态！':'Your company certification is under review!',
 															type: 'error',});}">
 											<fmt:message key="Certificate" /></a>
 										</c:when>
 										<c:otherwise>
-											<a href="javascript:void(0);" class="btn btn-primary" onclick="$('#companyCredentialModal').modal('show')"><fmt:message key="View" /></a>
+											<a href="javascript:void(0);" class="btn btn-primary" id="CredentialBtn" 
+											onclick="$('#companyCredentialModal').modal('show')"><fmt:message key="View" /></a>
 										</c:otherwise>
 										</c:choose>
 									</td>
@@ -247,5 +248,36 @@ table td p:nth-child(1) {margin: 10px 0;}
 	<%@include file="/WEB-INF/view/user/changeAvatarModal.jsp" %>
 	<!-- 个人中心页面模态框 -->
 	<%@include file="/WEB-INF/view/user/myCenterModal.jsp" %>
+<script>
+$(function () {
+	if(${user.getType()}==2){
+		//根据页面参数打开模态框
+		switch('${param.mode}'){
+			case 'CompanyCertification':
+				if(${company.getState() <= 0}){
+					$('#CompanyCertificationBtn').click();
+				}else{
+					swal({
+						title: language=='zh_CN'?'企业已认证':'Company Certified',
+						text: language=='zh_CN'?'你的企业已通过资质认证！无需重复认证。':'Your company has been certified!\nNo need for duplicate authentication.',
+						type: 'warning',
+					});
+				}
+				break;
+			case 'Credential':
+				if(${company.getState() > 0}){
+					$('#CredentialBtn').click();
+				}else{
+					swal({
+						title: language=='zh_CN'?'企业未认证':'Company Not Certified',
+						text: language=='zh_CN'?'你的企业未通过资质认证！快去提交认证。':'Your business has not passed the qualification certification! \nGo submit the certification.',
+						type: 'error',
+					});
+				}
+				break;	
+		}
+	}
+})
+</script>
 </body>
 </html>

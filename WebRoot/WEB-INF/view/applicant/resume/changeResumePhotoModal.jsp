@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!-- 修改头像模态框 -->
+<!-- 修改简历照片模态框 -->
 <link href="https://cdn.bootcss.com/cropper/3.1.3/cropper.min.css" rel="stylesheet">
 <div class="modal fade" id="changeResumePhotoModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="top:3%">
 	<div class="modal-dialog">
@@ -19,7 +19,7 @@
 				<label class="btn btn-danger" for="photoInput" style="margin-top:8px"><fmt:message key="SelectedPicture" />
 					<input type="file" class="sr-only" id="photoInput" accept="image/*" style="display:none">
 				</label>
-				<button class="btn btn-primary" disabled="disabled" id=submitResumePhoto onclick="submitResumePhoto();"><fmt:message key="Submit" /></button>
+				<button class="btn btn-primary" disabled="disabled" id="submitResumePhoto" onclick="submitResumePhoto();"><fmt:message key="Submit" /></button>
 				<button class="btn btn-info" aria-hidden="true" data-dismiss="modal"><fmt:message key="Cancel" /></button>
 			</div>
 		</div>

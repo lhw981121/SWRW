@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*,java.net.URLDecoder" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- 选择页码 -->
 <div class="panel-footer">
@@ -7,12 +8,12 @@
         <form class="form-inline" id="pageSizeForm" role="form" method="get" action="">
             <div class="form-group">
                 <select title="显示行数" id="pageSize" name="pageSize" class="form-control field" onchange="changePageSize($('#pageSize').val());">
-                    <option value="10">显示10行</option>
-                    <option value="25">显示25行</option>
-                    <option value="50">显示50行</option>
-                    <option value="100">显示100行</option>
-                    <option value="250">显示250行</option>
-                    <option value="500">显示500行</option>
+                    <option value="10"><fmt:message key="ShowLine1"/></option>
+                    <option value="25"><fmt:message key="ShowLine2"/></option>
+                    <option value="50"><fmt:message key="ShowLine3"/></option>
+                    <option value="100"><fmt:message key="ShowLine4"/></option>
+                    <option value="250"><fmt:message key="ShowLine5"/></option>
+                    <option value="500"><fmt:message key="ShowLine6"/></option>
                 </select>
             </div>
         </form>
