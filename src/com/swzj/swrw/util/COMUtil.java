@@ -252,7 +252,7 @@ public class COMUtil {
         write.write(decoderBytes);
         write.close();
         System.out.print(path);
-        //目录不存在新建
+        //目录不存在新建(复制一份到本地硬盘)
         File newFile = new File("C:/Wokespaces/SWRW/WebRoot/" + path.substring(44));
         if(!newFile.exists()){newFile.mkdirs(); }
         //输出文件到本机目录

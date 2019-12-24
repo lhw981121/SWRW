@@ -20,7 +20,7 @@ public class RefreshJobState {
 	private static final long PERIOD_DAY = 24 * 60 * 60 * 1000;
 	//构造函数
 	public RefreshJobState() {
-		new RefreshJobStateTask().run();//立即刷新一次职位状态
+		//new RefreshJobStateTask().run();//立即刷新一次职位状态
 		Calendar calendar = Calendar.getInstance();       
 		/*** 定制每日00:00:01执行方法 ***/
 		calendar.set(Calendar.HOUR_OF_DAY, 0);

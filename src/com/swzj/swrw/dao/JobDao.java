@@ -42,32 +42,7 @@ public class JobDao {
     	obj.setIsDeleted(rs.getBoolean("deleted"));
     	return obj;
 	}
-	
-	/**
-	* 获取所有职位信息
-	* @return 职位对象List
-	*/
-	public List<Job> getBasicInfoInfo() {
-		List<Job> list = new ArrayList<Job>();
-	    Connection conn = DBUtil.getConnection();
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    try{
-	        String sqlQuery = "select * from tb_job";
-	        pstmt = conn.prepareStatement(sqlQuery);
-	        rs = pstmt.executeQuery();
-	        while(rs.next()) {
-	        	Job obj = loadData(rs);
-	        	list.add(obj);
-	        }
-	    }catch(Exception e) {
-	        e.printStackTrace();
-	    }finally{
-	       DBUtil.closeJDBC(rs, pstmt, conn);
-	    }
-	    return list;
-    }
-	
+
 	/**
 	* 获取所有职位信息
 	* @return 职位对象List
