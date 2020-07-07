@@ -33,7 +33,7 @@ public class COMUtil {
 			return true;
 		}
 	}
-
+	
 	/**
 	* 将时间转换为字符串 yyyy-MM-dd HH:mm:ss
 	* @param date
@@ -47,7 +47,7 @@ public class COMUtil {
 			return "";
 		}
 	}
-
+	
 	/**
 	* 将字符串 yyyy-MM-dd HH:mm:ss 转换为时间
 	* @param dateStr
@@ -65,7 +65,7 @@ public class COMUtil {
 		}
 		return date;
 	}
-
+	
 	/**
 	* 将时间转换为字符串 yyyy-MM-dd
 	* @param date
@@ -79,7 +79,7 @@ public class COMUtil {
 			return "";
 		}
 	}
-
+	
 	/**
 	* 将字符串 yyyy-MM-dd 转换为时间
 	* @param dateStr
@@ -97,7 +97,7 @@ public class COMUtil {
 		}
 		return date;
 	}
-
+	
 	/**
 	* 将时间转换为字符串 yyyy年MM月dd日
 	* @param date
@@ -111,7 +111,7 @@ public class COMUtil {
 			return "";
 		}
 	}
-
+	
 	/**
 	* 将时间段字符串转化为 yyyy年MM月dd日 至 yyyy年MM月dd日
 	* @param periodStr
@@ -125,7 +125,7 @@ public class COMUtil {
 		end = dateToDate(strToDate(end));
 		return start+" 至 "+end;
 	}
-
+	
 	/**
 	* 将教育经历格式化
 	* @param education 教育经历对象
@@ -144,7 +144,7 @@ public class COMUtil {
 		}
 		return strList;
 	}
-
+	
 	/**
 	* 将项目经验格式化
 	* @param projectExp 项目经验对象
@@ -163,7 +163,7 @@ public class COMUtil {
 		}
 		return strList;
 	}
-
+	
 	/**
 	* 将工作经验格式化
 	* @param workExp 工作经验对象
@@ -181,8 +181,8 @@ public class COMUtil {
 		}
 		return strList;
 	}
-
-
+	
+	
 	/**
 	* 根据生日计算实际年龄
 	* @param birthday
@@ -192,7 +192,7 @@ public class COMUtil {
     	if(birthDay == null)	return 0;
         int age = 0;
         Calendar cal = Calendar.getInstance();
-        if (cal.before(birthDay)) {
+        if (cal.before(birthDay)) { 
         	return 0;
         }
         int yearNow = cal.get(Calendar.YEAR);  //当前年份
@@ -212,7 +212,7 @@ public class COMUtil {
         }
         return age;
     }
-
+    
     /**
 	* 隐藏手机号
 	* @param phone
@@ -222,7 +222,7 @@ public class COMUtil {
     	if(phone==null||phone.length()==0)	return "";
     	else	return phone.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
     }
-
+    
     /**
 	* 隐藏邮箱
 	* @param email
@@ -238,7 +238,7 @@ public class COMUtil {
 	* @param dataURL
 	* @param path
 	* @param imgName
-	* @return
+	* @return 
 	*/
     public static void decodeBase64DataURLToImageAndUpload(String dataURL, String path, String imgName) throws IOException {
         //将dataURL开头的非base64字符删除
@@ -259,7 +259,7 @@ public class COMUtil {
         write.write(decoderBytes);
         write.close();
     }
-
+    
     public static void main(String[] args) {
 	}
 
