@@ -67,6 +67,51 @@ public class UserDao {
     }
 	
 	/**
+	* 添加用户
+	* @param user 用户对象
+	* @return 新增用户的主键
+	*/
+	public int createUser(User user){
+		Connection conn = DBUtil.getConnection();
+		PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    int user_id = 0;
+		try{
+			String sql = "";
+			//添加用户信息
+			sql=
+			"insert into tb_user("
+			+ "user_type,"
+			+ "user_name,"
+			+ "user_email,"
+			+ "user_phone,"
+			+ "user_pwd,"
+    		+ "applicant_id,"
+    		+ "company_id)"
+    		+ "values(?,?,?,?,?,?,?)";
+			pstmt=conn.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, user.getType());
+			pstmt.setString(2, user.getName());
+			if(user.getEmail()==null)	pstmt.setNull(3, Types.VARCHAR);	else	pstmt.setString(3,user.getEmail());
+			if(user.getPhone()==null)	pstmt.setNull(4, Types.VARCHAR);	else	pstmt.setString(4,user.getPhone());
+			pstmt.setString(5, user.getPwd());
+			if(user.getApplicantID()==0)	pstmt.setNull(6, Types.INTEGER);	else	pstmt.setInt(6,user.getApplicantID());
+			if(user.getCompanyID()==0)	pstmt.setNull(7, Types.INTEGER);	else	pstmt.setInt(7, user.getCompanyID());
+			pstmt.executeUpdate();
+			rs = pstmt.getGeneratedKeys();
+			if(rs.next()) {
+				user_id = rs.getInt(1);
+			}
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+	        return user_id;
+	    }finally{
+	       DBUtil.closeJDBC(rs, pstmt, conn);
+	    }
+		return user_id;
+	}
+	
+	/**
 	* 用户登录
 	* @param account 账号
 	* @param password 密码

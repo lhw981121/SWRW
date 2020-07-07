@@ -59,11 +59,11 @@
 									<div class="meta-info d-flex">
 										<p><i class="fa fa-briefcase" aria-hidden="true"></i><a href="/SWRW/company">${job.companyName }</a></p>
 										<p><i class="fa fa-map-marker" aria-hidden="true"></i>${job.area }</p>
-										<p><i class="fa fa-calendar" aria-hidden="true"></i>${COMUtil.dataToStrLong(job.updated)}</p>
+										<p><i class="fa fa-calendar" aria-hidden="true"></i>${COMUtil.dateToStrLong(job.updated)}</p>
 									</div>
 								</div>
 								<div class="timing ml-auto" style="width:120px">
-									<a class="time-btn" id="job_state_str" href="javascript:;" onclick="changeJobState(${job.state })" title="变更职位招聘状态"></a>
+									<a class="time-btn" id="job_state_str" href="javascript:;" onclick="changeJobState(${job.ID},$('#job_state').val())" title="变更职位招聘状态"></a>
 									<input type="hidden" id="job_state" name="job_state" value="${job.state }"/>
 								</div>
 							</div>

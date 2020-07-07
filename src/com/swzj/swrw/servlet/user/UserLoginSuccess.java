@@ -51,22 +51,22 @@ public class UserLoginSuccess extends HttpServlet {
         user = dao.queryUserByAccount(user_account);
         Integer user_id = user.getID();
         
-        //选中记住密码，设置Cookie
-        if(rememberPsw.equals("true")) {
-        	Cookie COOKIE_USER = new Cookie("COOKIE_USER", BASE64.encodeBase64(user_id.toString()));
-        	COOKIE_USER.setMaxAge(60*60*12);//记住12小时
+		//选中记住密码，设置Cookie
+		if(rememberPsw.equals("true")) {
+			Cookie COOKIE_USER = new Cookie("COOKIE_USER", BASE64.encodeBase64(user_id.toString()));
+			COOKIE_USER.setMaxAge(60*60*12);//记住12小时
 			response.addCookie(COOKIE_USER);
-        }
-        //设置session并保存sessionid到Cookie
-        HttpSession session = request.getSession();
-        session.setAttribute("user", user);
-        //更新Cookie中的sessionid
-        Cookie JSESSIONID = new Cookie("JSESSIONID",session.getId());
-        JSESSIONID.setMaxAge(60*30);//保存时间为session存活时间
-        response.addCookie(JSESSIONID);
-        //更新用户在线状态
-        ServletContext application = request.getServletContext();
-        Map<String,Object> userMap = application.getAttribute("userMap")==null?new HashMap<String,Object>():(Map<String,Object>)application.getAttribute("userMap");
+		}
+		//设置session并保存sessionid到Cookie
+		HttpSession session = request.getSession();
+		session.setAttribute("user", user);
+		//更新Cookie中的sessionid
+		Cookie JSESSIONID = new Cookie("JSESSIONID",session.getId());
+		JSESSIONID.setMaxAge(60*30);//保存时间为session存活时间
+		response.addCookie(JSESSIONID);
+		//更新用户在线状态
+		ServletContext application = request.getServletContext();
+		Map<String,Object> userMap = application.getAttribute("userMap")==null?new HashMap<String,Object>():(Map<String,Object>)application.getAttribute("userMap");
 		userMap.put(session.getId(), user);
 		application.setAttribute("userMap", userMap);
         

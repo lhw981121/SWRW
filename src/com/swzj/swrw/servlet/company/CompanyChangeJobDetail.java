@@ -57,6 +57,7 @@ public class CompanyChangeJobDetail extends HttpServlet {
 			int job_hiringnum = Integer.valueOf(request.getParameter("job_hiringnum"));
 			Date job_endtime = COMUtil.strToDate(request.getParameter("job_endtime"));
 			int job_state = Integer.valueOf(request.getParameter("job_state"));
+			String mode = request.getParameter("mode")==null?"":request.getParameter("mode");
 			Job job = new JobDao().queryJobByID(job_id);
 
 			job.setName(job_name);
@@ -65,7 +66,15 @@ public class CompanyChangeJobDetail extends HttpServlet {
 			job.setSalary(job_salary);
 			job.setHiringNum(job_hiringnum);
 			job.setEndDate(job_endtime);
-			job.setState(job_state);
+			if(mode.length()!=0) {//修改职位信息模式
+				if(job_endtime.after(new Date())) {
+					job.setState(1);
+				}else if(job_endtime.before(new Date())) {
+					job.setState(3);
+				}
+			}else {
+				job.setState(job_state);
+			}
 			
 			boolean isOK = false;
 

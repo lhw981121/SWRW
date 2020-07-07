@@ -38,10 +38,12 @@ public class JobListingData extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("pageNo")==null||request.getParameter("job_state")==null||request.getParameter("job_area")==null||
 				request.getParameter("company_state")==null||request.getParameter("company_size")==null||request.getParameter("company_type")==null||
-				request.getParameter("queryStr")==null||request.getParameter("sortField")==null){
+				request.getParameter("queryStr")==null||request.getParameter("sortField")==null||request.getParameter("mode")==null){
 				response.sendRedirect("/SWRW/index");
 			return;
 		}
+		//获取搜索模式
+		String mode = request.getParameter("mode");
 		//获取当前页码
 		int pageNo = Integer.valueOf(request.getParameter("pageNo"));
 		//职位招聘状态
@@ -62,12 +64,23 @@ public class JobListingData extends HttpServlet {
 		int pageSize = request.getSession().getAttribute("pageSize")==null?10:Integer.valueOf(request.getSession().getAttribute("pageSize").toString());
 		
 		Map<String,Object> map = new HashMap<String,Object>();
-		//获取分页数据总量
-		int recordCount = new JobDao().getPageDataJobCount(job_state, job_area, company_state, company_size, company_type, queryStr);
-		//实例化分页对象
-		Pagination pagination = new Pagination(recordCount,pageNo,pageSize);
-		//获取分页数据
-		List<Job> jobs = new JobDao().getPageDataJob(pagination.getPageNo(), pageSize, job_state, job_area, company_state, company_size, company_type, queryStr, sortField);
+		List<Job> jobs = null;
+		Pagination pagination = null;
+		if(mode.equals("1")) {//按职位搜索
+			//获取分页数据总量
+			int recordCount = new JobDao().getPageDataJobCount(job_state, job_area, company_state, queryStr);
+			//实例化分页对象
+			pagination = new Pagination(recordCount,pageNo,pageSize);
+			//获取分页数据
+			jobs = new JobDao().getPageDataJob(pagination.getPageNo(), pageSize, job_state, job_area, company_state, queryStr, sortField);
+		}else {//按企业搜索
+			//获取分页数据总量
+			int recordCount = new JobDao().getPageDataJobCount(company_state, job_area, company_size, company_type, queryStr);
+			//实例化分页对象
+			pagination = new Pagination(recordCount,pageNo,pageSize);
+			//获取分页数据
+			jobs = new JobDao().getPageDataJob(pagination.getPageNo(), pageSize, company_state, job_area, company_size, company_type, queryStr, sortField);
+		}
 		map.put("jobs", jobs);
 		map.put("pagination", pagination);
 		

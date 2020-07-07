@@ -4,9 +4,9 @@
 <meta content="IE=edge,chrome=1" charset="utf-8">
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=0.3, maximum-scale=1, minimum-scale=0.3">
-<meta http-equiv="pragma" content="no-cache">
+<!-- <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
+<meta http-equiv="expires" content="0"> -->
 <title><fmt:message key="WebTitle"/></title>
 <!-- Favicon -->
 <link rel="icon" href="/SWRW/public/assets/images/favicon.png" type="image/png" sizes="32x32">

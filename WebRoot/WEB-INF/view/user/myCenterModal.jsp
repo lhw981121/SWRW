@@ -10,7 +10,7 @@
 <!-- 用户密码验证JS -->
 <script src="/SWRW/public/js/user/user_password.js"></script>
 <script src="/SWRW/public/js/jQuery.md5.js"></script>
-<!-- 用户密码验证JS -->
+<!-- 企业信息验证JS -->
 <script src="/SWRW/public/js/company/company_info.js"></script>
 
 <!-- 企业认证模态框 -->

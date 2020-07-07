@@ -39,7 +39,7 @@ public class COMUtil {
 	* @param date
 	* @return yyyy-MM-dd HH:mm:ss
 	*/
-	public static String dataToStrLong(Date date) {
+	public static String dateToStrLong(Date date) {
 		if(date!=null) {
 			DateFormat t = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	        return t.format(date);
@@ -243,7 +243,7 @@ public class COMUtil {
     public static void decodeBase64DataURLToImageAndUpload(String dataURL, String path, String imgName) throws IOException {
         //将dataURL开头的非base64字符删除
         String base64 = dataURL.substring(dataURL.indexOf(",") + 1);
-        //讲Base64格式转化为二进制流
+        //将Base64格式转化为二进制流
         byte[] decoderBytes = Base64.getDecoder().decode(base64);
         //目录不存在先创建目录
         File file = new File(path);if(!file.exists()){file.mkdirs();}
@@ -251,9 +251,8 @@ public class COMUtil {
         FileOutputStream write = new FileOutputStream(new File(path  + "/" + imgName));
         write.write(decoderBytes);
         write.close();
-        System.out.print(path);
         //目录不存在新建(复制一份到本地硬盘)
-        File newFile = new File("C:/Wokespaces/SWRW/WebRoot/" + path.substring(44));
+        File newFile = new File("C:/SWRW-data/" + path.substring(44));
         if(!newFile.exists()){newFile.mkdirs(); }
         //输出文件到本机目录
         write = new FileOutputStream(new File(newFile + "/" + imgName));

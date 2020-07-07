@@ -29,6 +29,7 @@
 var language = '${language}';
 /* 被登录过滤器拦截的url */
 var requestPath = '${requestPath}';
+if(requestPath.indexOf("WEB-INF")!=-1)requestPath='';
 /* 用户访问受限 */
 var limitedAccess = '${limitedAccess}';
 /* 单页数据量 */

@@ -48,16 +48,16 @@ public class UserIsOnline extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		//检测用户是否已在线
-        ServletContext application = session.getServletContext();
-        Map<String,Object> userMap = application.getAttribute("userMap")==null?new HashMap<String,Object>():(Map<String,Object>)application.getAttribute("userMap");
-        for (String key : userMap.keySet()) {
-	  		User user = (User)userMap.get(key);
-	  		if(((user.getEmail()!=null&&user.getEmail().equals(user_account.toLowerCase()))||
-	  			(user.getPhone()!=null&&user.getPhone().equals(user_account)))&&!key.equals(session.getId())) {
-	  			isOnline = true;
-	  			break;
-	  		}
-        }
+		ServletContext application = session.getServletContext();
+		Map<String,Object> userMap = application.getAttribute("userMap")==null?new HashMap<String,Object>():(Map<String,Object>)application.getAttribute("userMap");
+		for (String key : userMap.keySet()) {
+			User user = (User)userMap.get(key);
+			if(((user.getEmail()!=null&&user.getEmail().equals(user_account.toLowerCase()))||
+				(user.getPhone()!=null&&user.getPhone().equals(user_account)))&&!key.equals(session.getId())) {
+				isOnline = true;
+				break;
+			}
+		}
 
         map.put("isOnline", isOnline);
         

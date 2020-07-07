@@ -1,6 +1,26 @@
 //职位列表页面脚本
 
+//改变搜索模式
+var searchMode = 1;
+function ChangeSearchMode(){
+	if($('#search_mode').val()==1){
+		searchMode=1;
+		$('#job_state_area,#queryStr_job_area').show();
+		$('#company_size_area,#company_type_area,#queryStr_company_area').hide();
+	}else{
+		searchMode=2;
+		$('#job_state_area,#queryStr_job_area').hide();
+		$('#company_size_area,#company_type_area,#queryStr_company_area').show();
+	}
+}
 
+//通过主页搜索
+if($('#company_size').val().length!=0||$('#company_type').val().length!=0||$('#queryStr_company').val().length!=0){
+	searchMode = 2;
+	$('#search_mode').val('2');
+	$('#job_state_area,#queryStr_job_area').hide();
+	$('#company_size_area,#company_type_area,#queryStr_company_area').show();
+}
 
 /*选择页码获取分页数据*/
 var page = 1;
@@ -13,13 +33,14 @@ function SelectPage(pageNo){
 		datatype: "json", 
 		async:true,
 		data:{
+			"mode":searchMode,
 			"pageNo":pageNo,
 			"job_state":$('#job_state').val(),
 			"job_area":$('#job_area').val(),
 			"company_state":1,
 			"company_size":$('#company_size').val(),
 			"company_type":$('#company_type').val(),
-			"queryStr":$('#queryStr').val(),
+			"queryStr":searchMode==1?$('#queryStr_job').val():$('#queryStr_company').val(),
 			"sortField":'job_state,updated_at DESC',
 		},
 		success:function(result) {

@@ -27,6 +27,7 @@ function changeJobDetail(job_id){
 				"job_hiringnum":$('#job_hiringnum').val(),
 				"job_endtime":$('#job_endtime').val(),
 				"job_state":$('#job_state').val(),
+				"mode":'state'
 			},
 			success:function(result) {
 				var r = JSON.parse(result);
@@ -56,7 +57,7 @@ function changeJobDetail(job_id){
 }
 
 //修改职位状态
-function changeJobState(state){
+function changeJobState(job_id,state){
 	if(state<=0){//职位未通过审核
 		swal({
 			title: language=='zh_CN'?'职位不可用':'Position Unavailable',
@@ -102,6 +103,7 @@ function changeJobState(state){
 					var r = JSON.parse(result);
 					if(r.isOK==true){//修改职位状态成功
 						$('#job_state_str').html(getJobState(state));
+						$('#job_state').val(state);
 					}else{//修改职位状态失败
 						swal({
 							title: language=='zh_CN'?"修改职位招聘状态失败":"Modify Job State Failure",

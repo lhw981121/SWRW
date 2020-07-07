@@ -51,14 +51,14 @@ public class UserLogout extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
 		//更新用户为离线状态
-        ServletContext application = session.getServletContext();
-        Map<String,Object> userMap = application.getAttribute("userMap")==null?new HashMap<String,Object>():(Map<String,Object>)application.getAttribute("userMap");
-        if(userMap.containsKey(session.getId())) {
-        	userMap.remove(session.getId());
-        	session.removeAttribute("user");
-        	Logger.getLogger(getClass()).info("用户"+user.getID()+user.getName()+"成功注销已离线。");
-        }
-        application.setAttribute("userMap", userMap);
+		ServletContext application = session.getServletContext();
+		Map<String,Object> userMap = application.getAttribute("userMap")==null?new HashMap<String,Object>():(Map<String,Object>)application.getAttribute("userMap");
+		if(userMap.containsKey(session.getId())) {
+			userMap.remove(session.getId());
+			session.removeAttribute("user");
+			Logger.getLogger(getClass()).info("用户"+user.getID()+user.getName()+"成功注销已离线。");
+		}
+		application.setAttribute("userMap", userMap);
         
 		response.sendRedirect("/SWRW/index");
 		

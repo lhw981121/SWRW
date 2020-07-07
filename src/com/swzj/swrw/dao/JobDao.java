@@ -358,6 +358,188 @@ public class JobDao {
     }
 	
 	/**
+	* 获取分页职位招聘信息数据总数量（按职位搜索）
+	* @param job_state 职位招聘状态：-2(审核未通过)、-1(审核中)、0(不可用)、1(招聘中)、2(已暂停)、3(已结束)、4(审核通过)、5(不考虑)
+	* @param job_area 职位所在地
+	* @param company_state 企业招聘状态：-2(审核未通过)、-1(审核中)、0(不可用)、1(招聘中)、2(已暂停)、3(已结束)、4(审核通过)
+	* @param queryStr 查询字串
+	* @return 数据总数量
+	*/
+	public int getPageDataJobCount(int job_state,String job_area,int company_state,String queryStr) {
+		int count = 0;
+	    Connection conn = DBUtil.getConnection();
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    try{
+	    	int index = 1;
+	        String sqlQuery = 
+    		"select count(*) from tb_job where deleted=0 "
+    		+ (job_state==4?"and job_state>0":(job_state==5?"":"and job_state=?"))+" "
+    		+ "and job_area like ? "
+    		+ "and company_id in (select company_id from tb_company where deleted=0 "
+    		+ (company_state==4?"and company_state>0":"and company_state=?")+") "
+    		+ "and concat(ifnull(job_name,''),ifnull(job_area,''),ifnull(job_desc,'')) like ? ";
+	        pstmt = conn.prepareStatement(sqlQuery);
+	        if(job_state!=4&&job_state!=5)	pstmt.setInt(index++, job_state);
+	        pstmt.setString(index++, "%"+job_area+"%");
+	        if(company_state!=4)	 		pstmt.setInt(index++, company_state);
+	        pstmt.setString(index++, "%"+queryStr+"%");
+	        rs = pstmt.executeQuery();
+	        if(rs.next()) {
+            	count = rs.getInt(1);
+            }
+	    }catch(Exception e) {
+	        e.printStackTrace();
+	        return 0;
+	    }finally{
+	       DBUtil.closeJDBC(rs, pstmt, conn);
+	    }
+	    return count;
+    }
+	
+	/**
+	* 获取分页职位招聘信息数据（按职位搜索）
+	* @param pageNo 当前页
+	* @param pageSize 每页记录数
+	* @param job_state 职位招聘状态：-2(审核未通过)、-1(审核中)、0(不可用)、1(招聘中)、2(已暂停)、3(已结束)、4(审核通过)、5(不考虑)
+	* @param job_area 职位所在地
+	* @param company_state 企业招聘状态：-2(审核未通过)、-1(审核中)、0(不可用)、1(招聘中)、2(已暂停)、3(已结束)、4(审核通过)
+	* @param queryStr 查询字串
+	* @param sortField 排序字段及排序方式 ASC(升序)、DESC(降序)
+	* @return 职位对象List
+	*/
+	public List<Job> getPageDataJob(int pageNo,int pageSize,int job_state,String job_area,int company_state,String queryStr,String sortField) {
+		List<Job> list = new ArrayList<Job>();
+	    Connection conn = DBUtil.getConnection();
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    try{
+	    	int index = 1;
+	        String sqlQuery = 
+    		"select * from tb_job where deleted=0 "
+			+ (job_state==4?"and job_state>0":(job_state==5?"":"and job_state=?"))+" "
+    		+ "and job_area like ? "
+    		+ "and company_id in (select company_id from tb_company where deleted=0 "
+    		+ (company_state==4?"and company_state>0":"and company_state=?")+") "
+    		+ "and concat(ifnull(job_name,''),ifnull(job_area,''),ifnull(job_desc,'')) like ? "
+    		+ "order by "+(sortField.length()==0?"job_id":sortField)+" limit ?,?";
+	        pstmt = conn.prepareStatement(sqlQuery);
+	        if(job_state!=4&&job_state!=5)	pstmt.setInt(index++, job_state);
+	        pstmt.setString(index++, "%"+job_area+"%");
+	        if(company_state!=4)	 		pstmt.setInt(index++, company_state);
+	        pstmt.setString(index++, "%"+queryStr+"%");
+	        pstmt.setInt(index++, pageSize * (pageNo-1));
+	        pstmt.setInt(index++, pageSize);
+	        rs = pstmt.executeQuery();
+	        while(rs.next()) {
+	        	Job obj = loadData(rs);
+	        	list.add(obj);
+	        }
+	    }catch(Exception e) {
+	        e.printStackTrace();
+	    }finally{
+	       DBUtil.closeJDBC(rs, pstmt, conn);
+	    }
+	    return list;
+    }
+	
+	/**
+	* 获取分页职位招聘信息数据总数量（按企业搜索）
+	* @param company_state 企业招聘状态：-2(审核未通过)、-1(审核中)、0(不可用)、1(招聘中)、2(已暂停)、3(已结束)、4(审核通过)
+	* @param company_area 企业所在地
+	* @param company_size 企业规模
+	* @param company_type 企业性质
+	* @param queryStr 查询字串
+	* @return 数据总数量
+	*/
+	public int getPageDataJobCount(int company_state,String company_area,String company_size,String company_type,String queryStr) {
+		int count = 0;
+	    Connection conn = DBUtil.getConnection();
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    try{
+	    	int index = 1;
+	        String sqlQuery = 
+    		"select count(*) from tb_job where deleted=0 and job_state>0 "
+			+ "and company_id in (select company_id from tb_company where deleted=0 "
+			+ (company_state==4?"and company_state>0":"and company_state=?")+" "
+			+ "and company_area like ? "
+    		+ (company_size.length()==0?"":"and company_size=? ")
+    		+ (company_type.length()==0?"":"and company_type=? ")
+    		+ (queryStr.length()==0?") ":"and concat(ifnull(company_name,''),ifnull(company_area,'')) like ?) ");
+	        pstmt = conn.prepareStatement(sqlQuery);
+	        if(company_state!=4)	 		pstmt.setInt(index++, company_state);
+	        pstmt.setString(index++, "%"+company_area+"%");
+	        if(company_size.length()!=0)	pstmt.setString(index++, company_size);
+	        if(company_type.length()!=0)	pstmt.setString(index++, company_type);
+	        if(queryStr.length()!=0) {
+	        	pstmt.setString(index++, "%"+queryStr+"%");
+	        }
+	        rs = pstmt.executeQuery();
+	        if(rs.next()) {
+            	count = rs.getInt(1);
+            }
+	    }catch(Exception e) {
+	        e.printStackTrace();
+	        return 0;
+	    }finally{
+	       DBUtil.closeJDBC(rs, pstmt, conn);
+	    }
+	    return count;
+    }
+	
+	/**
+	* 获取分页职位招聘信息数据（按企业搜索）
+	* @param pageNo 当前页
+	* @param pageSize 每页记录数
+	* @param company_state 企业招聘状态：-2(审核未通过)、-1(审核中)、0(不可用)、1(招聘中)、2(已暂停)、3(已结束)、4(审核通过)
+	* @param company_area 企业所在地
+	* @param company_size 企业规模
+	* @param company_type 企业性质
+	* @param queryStr 查询字串
+	* @param sortField 排序字段及排序方式 ASC(升序)、DESC(降序)
+	* @return 职位对象List
+	*/
+	public List<Job> getPageDataJob(int pageNo,int pageSize,int company_state,String company_area,String company_size,String company_type,String queryStr,String sortField) {
+		List<Job> list = new ArrayList<Job>();
+	    Connection conn = DBUtil.getConnection();
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    try{
+	    	int index = 1;
+	        String sqlQuery = 
+    		"select * from tb_job where deleted=0 and job_state>0 "
+			+ "and company_id in (select company_id from tb_company where deleted=0 "
+			+ (company_state==4?"and company_state>0":"and company_state=?")+" "
+			+ "and company_area like ? "
+    		+ (company_size.length()==0?"":"and company_size=? ")
+    		+ (company_type.length()==0?"":"and company_type=? ")
+    		+ (queryStr.length()==0?") ":"and concat(ifnull(company_name,''),ifnull(company_area,'')) like ?) ")
+    		+ "order by "+(sortField.length()==0?"job_id":sortField)+" limit ?,?";
+	        pstmt = conn.prepareStatement(sqlQuery);
+	        if(company_state!=4)	 		pstmt.setInt(index++, company_state);
+	        pstmt.setString(index++, "%"+company_area+"%");
+	        if(company_size.length()!=0)	pstmt.setString(index++, company_size);
+	        if(company_type.length()!=0)	pstmt.setString(index++, company_type);
+	        if(queryStr.length()!=0) {
+	        	pstmt.setString(index++, "%"+queryStr+"%");
+	        }
+	        pstmt.setInt(index++, pageSize * (pageNo-1));
+	        pstmt.setInt(index++, pageSize);
+	        rs = pstmt.executeQuery();
+	        while(rs.next()) {
+	        	Job obj = loadData(rs);
+	        	list.add(obj);
+	        }
+	    }catch(Exception e) {
+	        e.printStackTrace();
+	    }finally{
+	       DBUtil.closeJDBC(rs, pstmt, conn);
+	    }
+	    return list;
+    }
+	
+	/**
 	* 修改职位信息
 	* @param job 职位对象
 	* @return 是否成功

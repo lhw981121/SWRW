@@ -46,11 +46,17 @@
 							<div class="search-bar text-center">
 								<div class="form-row">
 									<div class="col-md-2">
+										<select id="search_mode" class="custom-multi-select" onchange="ChangeSearchMode()">
+											<option value="1"><fmt:message key="SearchMode1" /></option>
+											<option value="2"><fmt:message key="SearchMode2" /></option>
+										</select>
+									</div>
+									<div class="col-md-2">
 										<select id="job_area" class="custom-multi-select" onchange="SelectPage(1)">
 											<option value=""><fmt:message key="AreaTip11" /></option>
 										</select>
 									</div>
-									<div class="col-md-2">
+									<div class="col-md-2" id="job_state_area">
 										<select id="job_state" class="custom-multi-select" onchange="SelectPage(1)">
 											<option value="4"><fmt:message key="JobState"/></option>
 											<option value="1"><fmt:message key="JobState1"/></option>
@@ -58,7 +64,7 @@
 											<option value="3"><fmt:message key="JobState3"/></option>
 										</select>
 									</div>
-									<div class="col-md-2">
+									<div class="col-md-2" style="display:none" id="company_size_area">
 										<select class="custom-multi-select" id="company_size" onchange="SelectPage(1)">
 											<option value=""><fmt:message key="CompanySize"/></option>
 											<option value="500人以下"><fmt:message key="CompanySize1"/></option>
@@ -68,7 +74,7 @@
 											<option value="10000人以上"><fmt:message key="CompanySize5"/></option>
 										</select>
 									</div>
-									<div class="col-md-2">
+									<div class="col-md-2" style="display:none" id="company_type_area">
 										<select class="custom-multi-select" id="company_type" onchange="SelectPage(1)">
 											<option value=""><fmt:message key="CompanyType"/></option>
 											<option value="私营企业"><fmt:message key="CompanyType1"/></option>
@@ -83,8 +89,14 @@
 											<option value="其他事业单位"><fmt:message key="CompanyType10"/></option>
 										</select>
 									</div>
-									<div class="col-md-3">
-										<input type="search" placeholder="<fmt:message key="EnterKeywords"/>" id="queryStr" autocomplete="off"
+									<!-- 职位搜索框 -->
+									<div class="col-md-5" id="queryStr_job_area">
+										<input type="search" placeholder="<fmt:message key="EnterKeywords"/>" id="queryStr_job" autocomplete="off"
+										onkeypress="if(event.keyCode==13) {searchBtn.click();return false;}"/>
+									</div>
+									<!-- 企业搜索框 -->
+									<div class="col-md-3" style="display:none" id="queryStr_company_area">
+										<input type="search" placeholder="<fmt:message key="EnterKeywords"/>" id="queryStr_company" autocomplete="off"
 										onkeypress="if(event.keyCode==13) {searchBtn.click();return false;}"/>
 									</div>
 									<div class="col-md-1">
@@ -134,7 +146,7 @@ for (var i = 0; i<citys.length; i++) {
 //渲染主页传来的搜索数据
 $('#company_size').val('${param.company_size}');
 $('#company_type').val('${param.company_type}');
-$('#queryStr').val('${param.queryStr}');
+$('#queryStr_company').val('${param.queryStr}');
 </script>
 <script src="/SWRW/public/js/job/job_listing.js"></script>
 </body>
