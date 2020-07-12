@@ -37,7 +37,8 @@
 						<span>信息管理</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
 					<div id="manageInfo" class="collapse">
 						<ul class="nav">
-							<li><a
+							<li><a href="javascript:;" id="Class" class="">开发中。。。</a></li>
+							<!-- <li><a
 								href="/CSMS/SWZJ/admin/manageInfo/Student/studentInfo.jsp"
 								id="Student" class="">学生信息管理</a></li>
 							<li><a
@@ -48,7 +49,7 @@
 								id="Teacher" class="">教师信息管理</a></li>
 							<li><a href="#" id="Class" class="">班级信息管理</a></li>
 							<li><a href="#" id="Major" class="">专业信息管理</a></li>
-							<li><a href="#" id="College" class="">学院信息管理</a></li>
+							<li><a href="#" id="College" class="">学院信息管理</a></li> -->
 						</ul>
 					</div></li>
 

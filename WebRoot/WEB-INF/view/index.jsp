@@ -146,7 +146,7 @@
 		</div>
 		<!--work-area-end -->
 		<!--job-post-area-start -->
-		<div class="job-post-area pt-100 bg-color2 pb-100 minus-15 clearfix">
+		<%-- <div class="job-post-area pt-100 bg-color2 pb-100 minus-15 clearfix">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
@@ -995,7 +995,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> --%>
 		<!--client-area-end -->
 	</main>
 
